@@ -1,0 +1,16 @@
+apply plugin: 'java-library'
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    def fragment_version = "1.2.5"
+
+    // Java language implementation
+    implementation "androidx.fragment:fragment:$fragment_version"
+    // Kotlin
+    implementation "androidx.fragment:fragment-ktx:$fragment_version"
+    // Testing Fragments in Isolation
+
+}
+
+sourceCompatibility = "1.7"
+targetCompatibility = "1.7"

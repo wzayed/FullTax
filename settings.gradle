@@ -1,0 +1,4 @@
+include ':CompleteFactory2'
+include ':CompleteFactory'
+include ':app'
+rootProject.name = "FullTax"
