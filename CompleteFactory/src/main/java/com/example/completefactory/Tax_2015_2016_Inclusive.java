@@ -4,7 +4,7 @@ public class  Tax_2015_2016_Inclusive implements ITax{
     double taxBase=0;
     TaxPersonType taxPersonType;
     private double taxValue=0.00;
-    public final String[] tabs={"شخص إعتبارى","شخص طبيعى"};
+    public final String[] tabs={"شخص طبيعى","شخص إعتبارى"};
     Tax_2015_2016_Inclusive(double taxBase,TaxPersonType taxPersonType){
         this.taxBase=taxBase;
         this.taxPersonType=taxPersonType;
@@ -18,10 +18,10 @@ public class  Tax_2015_2016_Inclusive implements ITax{
         return this.taxValue;
 
     }
-    void setTaxBase(double taxBase){
+    public void setTaxBase(double taxBase){
         this.taxBase=taxBase;
     }
-    void setTaxPersonType(TaxPersonType tpt)
+    public void setTaxPersonType(TaxPersonType tpt)
     {
         this.taxPersonType=tpt;
     }
@@ -64,7 +64,24 @@ public class  Tax_2015_2016_Inclusive implements ITax{
 
         return this.taxValue;
     }
+
+    public int getTabCount(){
+        return  tabs.length;
+    }
+
+    public String[] getTabHeaders(){
+        return tabs;
+    }
+
     public String get_WhichRuleAmI(){
         return "Tax_From_To_2015_2016_Inclusive" + "\n" + theTaxRule.lawInfo;
+    }
+
+    public double getTaxRatioLegalEntity(){
+        return theTaxRule.TAXForLegalPerson;
+    }
+    public double getTaxRatioNormalPerson_Unexempted()
+    {
+        return theTaxRule.taxSegments.get(theTaxRule.taxSegments.size() - 1).taxPercentageInThisSegment;
     }
 } ///End Of class

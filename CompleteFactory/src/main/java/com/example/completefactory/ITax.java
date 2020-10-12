@@ -9,7 +9,15 @@ public interface ITax{
     double getTax_NormalPersonWithout_Exemption(double noOfMonthes);                  //////
     double getTax_NormalPerson_WithDiscount(double noOfMonthes);                      /////
     double getTax_NormalPerson_WithoutDiscount(double noOfMonthes);                   //End For Individuals
+    void setTaxBase(double taxBase);
+
+    int getTabCount();
+    String[] getTabHeaders();
 
     String get_WhichRuleAmI();                                   //For Debug Info
+
+     double getTaxRatioLegalEntity();
+
+     double getTaxRatioNormalPerson_Unexempted();
 
 }

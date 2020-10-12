@@ -1,7 +1,6 @@
 package com.example.completefactory;
 
-
-public class  Tax_1981_1993_Inclusive implements ITax{
+class  Tax_1981_1993_Inclusive implements ITax{
     final String lawInfo="القانون رقم 157 لسنة 1981";
     private SocialStatus socialStatus;
     TaxRule_1981_1993_Inclusive theTaxRule=new TaxRule_1981_1993_Inclusive();
@@ -18,16 +17,15 @@ public class  Tax_1981_1993_Inclusive implements ITax{
         this.taxPersonType=taxPersonType;
     }
     Tax_1981_1993_Inclusive(){
-
     }
     double getTaxValue(){
         return this.taxValue;
 
     }
-    void setTaxBase(double taxBase){
+    public void setTaxBase(double taxBase){
         this.taxBase=taxBase;
     }
-    void setTaxPersonType(TaxPersonType tpt)
+    public void setTaxPersonType(TaxPersonType tpt)
     {
         this.taxPersonType=tpt;
     }
@@ -96,7 +94,22 @@ public class  Tax_1981_1993_Inclusive implements ITax{
 
         return this.taxValue;
     }
+    public int getTabCount(){
+        return  tabs.length;
+    }
+
+    public String[] getTabHeaders(){
+        return tabs;
+    }
     public String get_WhichRuleAmI(){
         return "Tax_From_To_1981_1993_Inclusive" + "\n" + lawInfo;
+    }
+
+    public double getTaxRatioLegalEntity(){
+        return theTaxRule.taxSegmentsCommercialsAndIndustrial.get(theTaxRule.taxSegmentsCommercialsAndIndustrial.size() - 1).taxPercentage;
+    }
+    public double getTaxRatioNormalPerson_Unexempted()
+    {
+        return theTaxRule.taxSegmentsProfession.get(theTaxRule.taxSegmentsProfession.size() - 1).taxPercentage;
     }
 } ///End Of class

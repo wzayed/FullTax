@@ -22,10 +22,10 @@ public class  Tax_1998_2004_Inclusive implements ITax{
 
     }
 
-    void setTaxBase(double taxBase){
+    public void setTaxBase(double taxBase){
         this.taxBase=taxBase;
     }
-    void setTaxPersonType(TaxPersonType tpt)
+    public void setTaxPersonType(TaxPersonType tpt)
     {
         this.taxPersonType=tpt;
     }
@@ -96,7 +96,22 @@ public class  Tax_1998_2004_Inclusive implements ITax{
 
         return this.taxValue;
     }
+    public int getTabCount(){
+        return  tabs.length;
+    }
+
+    public String[] getTabHeaders(){
+        return tabs;
+    }
     public String get_WhichRuleAmI(){
         return "Tax_From_To_1998_2004_Inclusive" + "\n" + lawInfo;
+    }
+
+    public double getTaxRatioLegalEntity(){
+        return theTaxRule.taxSegments.get(theTaxRule.taxSegments.size() - 1).taxPercentage;
+    }
+    public double getTaxRatioNormalPerson_Unexempted()
+    {
+        return theTaxRule.taxSegments.get(theTaxRule.taxSegments.size() - 1).taxPercentage;
     }
 } ///End Of class

@@ -11,7 +11,7 @@ public class YearsFragment{
     YearsFragment(int fromY,int toY,Fragment frag1,Fragment frag2){
         this.fromYear=fromY;
         this.toYear=toY;
-        fragments.add(frag1);
-        if(frag2!=null) fragments.add(frag2);
+        this.fragments.add(frag1);
+        if(frag2!=null) this.fragments.add(frag2);
     }
 }

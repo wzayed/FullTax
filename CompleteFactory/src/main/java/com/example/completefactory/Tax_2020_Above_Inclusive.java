@@ -1,10 +1,10 @@
 package com.example.completefactory;
 
 public class  Tax_2020_Above_Inclusive implements ITax{
-    TaxRule_2020_And_Above theTaxRule=new TaxRule_2020_And_Above();
+    public TaxRule_2020_And_Above theTaxRule=new TaxRule_2020_And_Above();
     private double taxValue=0.00;
     double taxBase=0;
-    public final String[] tabs={"شخص إعتبارى","شخص طبيعى"};
+    public final String[] tabs={"شخص طبيعى","شخص إعتبارى"};
     TaxPersonType taxPersonType;
     Tax_2020_Above_Inclusive(double taxBase,TaxPersonType taxPersonType){
         this.taxBase=taxBase;
@@ -18,7 +18,7 @@ public class  Tax_2020_Above_Inclusive implements ITax{
     double getTaxValue(){
         return this.taxValue;
     }
-    void setTaxBase(double taxBase){
+    public void setTaxBase(double taxBase){
         this.taxBase=taxBase;
     }
     void setTaxPersonType(TaxPersonType tpt)
@@ -52,16 +52,31 @@ public class  Tax_2020_Above_Inclusive implements ITax{
     public double getTax_NormalPerson_WithDiscount(double noOfMonthes)                      /////
     {
 
-
         return this.taxValue;
     }
     public double getTax_NormalPerson_WithoutDiscount(double noOfMonthes)                   //End For Individuals
     {
 
-
         return this.taxValue;
     }
+
+    public int getTabCount(){
+        return  tabs.length;
+    }
+
+    public String[] getTabHeaders(){
+        return tabs;
+    }
+
     public String get_WhichRuleAmI(){
         return "Tax_2020_Above_Inclusive" + "\n" + theTaxRule.lawInfo;
+    }
+
+    public double getTaxRatioLegalEntity(){
+        return theTaxRule.TAXForLegalPerson;
+    }
+    public double getTaxRatioNormalPerson_Unexempted()
+    {
+        return theTaxRule.taxSegments.get(theTaxRule.taxSegments.size() - 1).taxPercentageInThisSegment;
     }
 } ///End Of class
