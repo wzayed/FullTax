@@ -18,6 +18,6 @@ public interface ITax{
 
      double getTaxRatioLegalEntity();
 
-     double getTaxRatioNormalPerson_Unexempted();
+     double getTaxRatioNormalPerson_Without_exemption();
 
 }

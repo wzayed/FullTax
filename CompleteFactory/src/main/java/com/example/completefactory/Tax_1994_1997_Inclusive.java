@@ -114,7 +114,7 @@ public class  Tax_1994_1997_Inclusive implements ITax {
         return theTaxRule.taxSegments.get(theTaxRule.taxSegments.size() - 1).taxPercentage;
     }
 
-    public double getTaxRatioNormalPerson_Unexempted() {
+    public double getTaxRatioNormalPerson_Without_exemption() {
         return theTaxRule.taxSegments.get(theTaxRule.taxSegments.size() - 1).taxPercentage;
     }
 }///End Of class

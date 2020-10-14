@@ -108,7 +108,7 @@ class  Tax_1981_1993_Inclusive implements ITax{
     public double getTaxRatioLegalEntity(){
         return theTaxRule.taxSegmentsCommercialsAndIndustrial.get(theTaxRule.taxSegmentsCommercialsAndIndustrial.size() - 1).taxPercentage;
     }
-    public double getTaxRatioNormalPerson_Unexempted()
+    public double getTaxRatioNormalPerson_Without_exemption()
     {
         return theTaxRule.taxSegmentsProfession.get(theTaxRule.taxSegmentsProfession.size() - 1).taxPercentage;
     }

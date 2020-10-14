@@ -1,19 +1,14 @@
 package com.example.fulltax;
 
-import android.app.Fragment;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentActivity;
-import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
@@ -88,7 +83,6 @@ public class MainActivity extends FragmentActivity {
 
             }
         });
-
     }
 
     void configTabLayout() {
@@ -104,10 +98,19 @@ public class MainActivity extends FragmentActivity {
         // vPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tLayout));
     }
     public void calcLegalEntityTax(View view){
-//Check if textbox is empty
+        //Check if textbox is empty
         LegalEntityTaxFragment legal_entity_frag=(LegalEntityTaxFragment) this.yearsFragment.fragments.get(1);
         EditText taxBase=(EditText) findViewById(R.id.txtNetProfit);
         theTaxEntity.setTaxBase(Double.parseDouble(taxBase.getText().toString()));
         legal_entity_frag.update_Tax_Texts(theTaxEntity.getTaxRatioLegalEntity(),theTaxEntity.getTax_LegalPerson());
     }
+    public void calcTax_NoDiscount(View view){
+        SegmentSimpleTaxFragment Segment_Simple_frag=(SegmentSimpleTaxFragment) this.yearsFragment.fragments.get(0);
+        EditText taxBase=(EditText) findViewById(R.id.txtNetProfit);
+        theTaxEntity.setTaxBase(Double.parseDouble(taxBase.getText().toString()));
+        //Add Marital Status if the year is <=2005
+        Segment_Simple_frag.update_Tax_Texts(theTaxEntity.getTaxRatioNormalPerson_Without_exemption(),
+                theTaxEntity.getTax_NormalPerson_WithExemption(12),theTaxEntity.getTax_NormalPersonWithout_Exemption(12));
+    }
+
 }

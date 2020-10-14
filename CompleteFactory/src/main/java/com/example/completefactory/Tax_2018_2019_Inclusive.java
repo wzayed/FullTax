@@ -77,7 +77,7 @@ public class  Tax_2018_2019_Inclusive implements ITax{
     public double getTaxRatioLegalEntity(){
         return theTaxRule.TAXForLegalPerson;
     }
-    public double getTaxRatioNormalPerson_Unexempted()
+    public double getTaxRatioNormalPerson_Without_exemption()
     {
         return theTaxRule.taxSegments.get(theTaxRule.taxSegments.size() - 1).taxPercentageInThisSegment;
     }

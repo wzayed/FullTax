@@ -11,7 +11,7 @@
 
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/lblNetProfit"
         android:layout_width="143dp"
         android:layout_height="56dp"
         android:layout_marginTop="104dp"
@@ -23,13 +23,14 @@
 
     <EditText
         android:id="@+id/txtNetProfit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="261dp"
+        android:layout_height="50dp"
         android:ems="10"
         android:inputType="numberSigned"
         android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="@+id/textView4"
-        app:layout_constraintTop_toTopOf="@+id/textView4" />
+        app:layout_constraintBottom_toBottomOf="@+id/lblNetProfit"
+        app:layout_constraintEnd_toStartOf="@+id/lblNetProfit"
+        app:layout_constraintTop_toTopOf="@+id/lblNetProfit" />
 
     <TextView
         android:id="@+id/lblTaxRatio"
