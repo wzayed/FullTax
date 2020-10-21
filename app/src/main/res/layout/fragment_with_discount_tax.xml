@@ -5,19 +5,158 @@
     android:id="@+id/frameLayout4"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SegmentsWithDiscountsTaxFragment">
+    android:outlineProvider="background"
+    tools:context="com.tax.fulltax.SegmentsWithDiscountsTaxFragment">
 
     <!-- TODO: Update blank fragment layout -->
 
+    <Button
+        android:id="@+id/btnTaxCalc_discount"
+        android:layout_width="160dp"
+        android:layout_height="70dp"
+        android:onClick="calcTax_Discount"
+        android:text="إحسب الضريبة"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toStartOf="@+id/tgl_isExempted_discount"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="169dp"
-        android:layout_height="120dp"
-        android:text="Fragment With Discount"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <ToggleButton
+        android:id="@+id/tgl_isExempted_discount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:checked="true"
+        android:drawableStart="@drawable/tglexemption"
+        android:textOff="    بدون إعفاءات"
+        android:textOn="   مع الإعفاءات"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/btnTaxCalc_discount"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="Fragment With Discount" />
+        app:layout_constraintTop_toTopOf="@+id/btnTaxCalc_discount" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/frm_UnExempted_discount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btnTaxCalc_discount">
+
+
+        <TextView
+            android:id="@+id/lblTaxValue_discount"
+            android:layout_width="145dp"
+            android:layout_height="58dp"
+            android:text="قيمة الضريبة"
+            android:textAlignment="center"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="@+id/frm_UnExempted_discount"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/lblResTaxValue_FragSmpl_discount"
+            android:layout_width="145dp"
+            android:layout_height="58dp"
+            android:text="00.00"
+            android:textAlignment="center"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toStartOf="@+id/lblTaxValue_discount"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/lblTaxPercentage_discount"
+            android:layout_width="145dp"
+            android:layout_height="58dp"
+            android:text="نسبة الضريبة"
+            android:textAlignment="center"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="@+id/frm_UnExempted_discount"
+            app:layout_constraintTop_toBottomOf="@+id/lblTaxValue_discount" />
+
+        <TextView
+            android:id="@+id/lblResTaxPercentage_FragSmpl_discount"
+            android:layout_width="145dp"
+            android:layout_height="58dp"
+            android:text="00.00"
+            android:textAlignment="center"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toStartOf="@+id/lblTaxPercentage_discount"
+            app:layout_constraintTop_toTopOf="@+id/lblTaxPercentage_discount" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- The Layout of the Exempted entities-->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/frm_Exempted_discount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btnTaxCalc_discount">
+
+        <TextView
+            android:id="@+id/lblResTaxValue2_discount2"
+            android:layout_width="135dp"
+            android:layout_height="58dp"
+            android:outlineProvider="bounds"
+            android:text="00.00"
+            android:textAlignment="center"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/lblResTaxRatio_FragSmpl_discount" />
+
+        <TextView
+            android:id="@+id/lblTaxValue2_discount2"
+            android:layout_width="135dp"
+            android:layout_height="58dp"
+            android:text="قيمة الضريبة قبل الخصم"
+            android:textAlignment="center"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toTopOf="@+id/lblResTaxValue2_discount2"
+            app:layout_constraintEnd_toStartOf="@+id/lblTaxRatio_discount"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/lblTaxValue2_discount"
+            android:layout_width="136dp"
+            android:layout_height="58dp"
+            android:text="قيمة الضريبة"
+            android:textAlignment="center"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toTopOf="@+id/lblResTaxValue2_discount"
+            app:layout_constraintEnd_toEndOf="@+id/frm_Exempted_discount"
+            app:layout_constraintTop_toTopOf="@+id/frm_Exempted_discount" />
+
+        <TextView
+            android:id="@+id/lblResTaxValue2_discount"
+            android:layout_width="136dp"
+            android:layout_height="58dp"
+            android:text="00.00"
+            android:textAlignment="center"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <TextView
+            android:id="@+id/lblTaxRatio_discount"
+            android:layout_width="136dp"
+            android:layout_height="58dp"
+            android:text="نسبة الخـصم"
+            android:textAlignment="center"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toTopOf="@+id/lblResTaxRatio_FragSmpl_discount"
+            app:layout_constraintEnd_toStartOf="@+id/lblTaxValue2_discount"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/lblResTaxRatio_FragSmpl_discount"
+            android:layout_width="136dp"
+            android:layout_height="58dp"
+            android:text="00.00"
+            android:textAlignment="center"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/lblResTaxValue2_discount" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

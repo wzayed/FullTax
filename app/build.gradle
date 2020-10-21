@@ -4,9 +4,9 @@ android {
     compileSdkVersion 29
     compileOptions.encoding = 'UTF8'
     defaultConfig {
-        applicationId "com.example.fulltax"
+        applicationId "com.tax.fulltax"
         minSdkVersion 25
-        targetSdkVersion 26
+        targetSdkVersion 30
         versionCode 1
         versionName "1.0"
 

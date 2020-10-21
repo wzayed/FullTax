@@ -3,8 +3,8 @@
   <component name="Encoding" defaultCharsetForPropertiesFiles="UTF-8">
     <file url="file://$PROJECT_DIR$" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/CompleteFactory" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/CompleteFactory/src/main/java/com/example/completefactory/TaxRule_2013_2014_Inclusive.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/CompleteFactory/src/main/java/com/example/completefactory/Tax_2020_Above_Inclusive.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/CompleteFactory/src/main/java/com/tax/completefactory/TaxRule_2013_2014_Inclusive.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/CompleteFactory/src/main/java/com/tax/completefactory/Tax_2020_Above_Inclusive.java" charset="UTF-8" />
     <file url="PROJECT" charset="UTF-8" />
   </component>
 </project>

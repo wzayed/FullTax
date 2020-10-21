@@ -5,33 +5,20 @@
     android:id="@+id/frag_legal_entity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LegalEntityTaxFragment">
+    tools:context="com.tax.fulltax.LegalEntityTaxFragment">
 
     <!-- TODO: Update blank fragment layout -->
 
-
-    <TextView
-        android:id="@+id/lblNetProfit"
-        android:layout_width="143dp"
-        android:layout_height="56dp"
-        android:layout_marginTop="104dp"
-        android:text="صافى الـربح"
-        android:textAlignment="center"
+    <Button
+        android:id="@+id/btnTaxCalc"
+        android:layout_width="160dp"
+        android:layout_height="49dp"
+        android:onClick="calcLegalEntityTax"
+        android:text="إحسب الضريبة"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <EditText
-        android:id="@+id/txtNetProfit"
-        android:layout_width="261dp"
-        android:layout_height="50dp"
-        android:ems="10"
-        android:inputType="numberSigned"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="@+id/lblNetProfit"
-        app:layout_constraintEnd_toStartOf="@+id/lblNetProfit"
-        app:layout_constraintTop_toTopOf="@+id/lblNetProfit" />
-
     <TextView
         android:id="@+id/lblTaxRatio"
         android:layout_width="143dp"
@@ -54,35 +41,22 @@
         app:layout_constraintTop_toBottomOf="@+id/lblTaxRatio" />
 
     <TextView
-        android:id="@+id/lblResTaxRatio"
+        android:id="@+id/lblResTaxRatio_FragLegal"
         android:layout_width="143dp"
         android:layout_height="56dp"
         android:layout_marginTop="72dp"
-        android:text="نسبة الضريبة"
         android:textAlignment="center"
         android:textSize="24sp"
         app:layout_constraintEnd_toStartOf="@+id/lblTaxRatio"
         app:layout_constraintTop_toTopOf="@+id/btnTaxCalc" />
 
     <TextView
-        android:id="@+id/lblResTaxValue"
+        android:id="@+id/lblResTaxValue_FragLegal"
         android:layout_width="143dp"
         android:layout_height="56dp"
-        android:text="قيمة الضريبة"
         android:textAlignment="center"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="@+id/lblTaxValue"
         app:layout_constraintEnd_toStartOf="@+id/lblTaxRatio" />
 
-    <Button
-        android:id="@+id/btnTaxCalc"
-        android:layout_width="160dp"
-        android:layout_height="49dp"
-        android:onClick="calcLegalEntityTax"
-        android:text="إحسب الضريبة"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtNetProfit"
-        tools:ignore="OnClick" />
 </androidx.constraintlayout.widget.ConstraintLayout>

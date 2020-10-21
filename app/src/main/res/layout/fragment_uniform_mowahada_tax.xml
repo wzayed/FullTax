@@ -5,35 +5,15 @@
     android:id="@+id/frameLayout2"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.tax.fulltax.UniformTaxFragment">
+    tools:context="com.tax.fulltax.UniformTaxFragment_Mowahada">
 
     <!-- TODO: Update blank fragment layout -->
 
     <!-- TODO: Update blank fragment layout -->
 
-    <Spinner
-        android:id="@+id/socialStatus_WithoutCommercialComp"
-        android:layout_width="0dp"
-        android:layout_height="53dp"
-        app:layout_constraintEnd_toStartOf="@+id/tgl_isExempted_uniform"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/tgl_isExempted_uniform">
-
-    </Spinner>
-
-    <Button
-        android:id="@+id/btnTaxCalc_uniform"
-        android:layout_width="160dp"
-        android:layout_height="70dp"
-        android:onClick="calcTax_Uniform_NoDiscount"
-        android:text="إحسب الضريبة"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tgl_isExempted_uniform" />
 
     <ToggleButton
-        android:id="@+id/tgl_isExempted_uniform"
+        android:id="@+id/tgl_isExempted_uniform_Mowahada"
         android:layout_width="wrap_content"
         android:layout_height="53dp"
         android:checked="true"
@@ -44,19 +24,41 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+    <Spinner
+        android:id="@+id/socialStatus_WithoutCommercialComp_Mowahada"
+        android:layout_width="0dp"
+        android:layout_height="53dp"
+        app:layout_constraintEnd_toStartOf="@+id/tgl_isExempted_uniform_Mowahada"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tgl_isExempted_uniform_Mowahada">
+
+    </Spinner>
+
+    <Button
+        android:id="@+id/btnTaxCalc_uniform_Mowahada"
+        android:layout_width="160dp"
+        android:layout_height="70dp"
+        android:onClick="calcTax_Uniform_NoDiscount_Mowahada"
+        android:text="إحسب الضريبة"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tgl_isExempted_uniform_Mowahada" />
+
+
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/frm_UnExempted_uniform"
+        android:id="@+id/frm_UnExempted_uniform_Mowahada"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btnTaxCalc_uniform">
+        app:layout_constraintTop_toBottomOf="@id/btnTaxCalc_uniform_Mowahada">
 
 
 
         <TextView
-            android:id="@+id/lblTaxRatio_Unexempted_uniform"
+            android:id="@+id/lblTaxRatio_Unexempted_uniform_Mowahada"
             android:layout_width="145dp"
             android:layout_height="58dp"
             android:text="نسبة الضريبة"
@@ -66,34 +68,34 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/lblResTaxRatio_Unexempted_uniform"
+            android:id="@+id/lblResTaxRatio_Unexempted_uniform_Mowahada"
             android:layout_width="145dp"
             android:layout_height="58dp"
             android:text="00.00"
             android:textAlignment="center"
             android:textSize="24sp"
-            app:layout_constraintEnd_toStartOf="@+id/lblTaxRatio_Unexempted_uniform"
+            app:layout_constraintEnd_toStartOf="@+id/lblTaxRatio_Unexempted_uniform_Mowahada"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/lblTaxValue_Unexempted_uniform"
+            android:id="@+id/lblTaxValue_Unexempted_uniform_Mowahada"
             android:layout_width="145dp"
             android:layout_height="58dp"
             android:text="قيمة الضريبة"
             android:textAlignment="center"
             android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/lblTaxRatio_Unexempted_uniform" />
+            app:layout_constraintTop_toBottomOf="@+id/lblTaxRatio_Unexempted_uniform_Mowahada" />
 
         <TextView
-            android:id="@+id/lblResTaxValue_Unexempted_uniform"
+            android:id="@+id/lblResTaxValue_Unexempted_uniform_Mowahada"
             android:layout_width="145dp"
             android:layout_height="58dp"
             android:text="00.00"
             android:textAlignment="center"
             android:textSize="24sp"
-            app:layout_constraintEnd_toStartOf="@+id/lblTaxValue_Unexempted_uniform"
-            app:layout_constraintTop_toBottomOf="@+id/lblResTaxRatio_Unexempted_uniform" />
+            app:layout_constraintEnd_toStartOf="@+id/lblTaxValue_Unexempted_uniform_Mowahada"
+            app:layout_constraintTop_toBottomOf="@+id/lblResTaxRatio_Unexempted_uniform_Mowahada" />
 
 
 
@@ -102,14 +104,14 @@
 
     <!-- The Layout of the Exempted entities-->
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/frm_Exempted_uniform"
+        android:id="@+id/frm_Exempted_uniform_Mowahada"
         android:layout_width="412dp"
         android:layout_height="338dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btnTaxCalc_uniform">
+        app:layout_constraintTop_toBottomOf="@id/btnTaxCalc_uniform_Mowahada">
 
         <TextView
-            android:id="@+id/lblTaxValue_exempted_unifrom"
+            android:id="@+id/lblTaxValue_exempted_unifrom_Mowahada"
             android:layout_width="145dp"
             android:layout_height="58dp"
             android:text="قيمة الضريبة"
@@ -119,14 +121,14 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/lblResTaxValue_exempted_uniform"
+            android:id="@+id/lblResTaxValue_exempted_uniform_Mowahada"
             android:layout_width="145dp"
             android:layout_height="58dp"
             android:text="00.00"
             android:textAlignment="center"
             android:textSize="24sp"
-            app:layout_constraintEnd_toStartOf="@+id/lblTaxValue_exempted_unifrom"
-            app:layout_constraintTop_toTopOf="@+id/lblTaxValue_exempted_unifrom" />
+            app:layout_constraintEnd_toStartOf="@+id/lblTaxValue_exempted_unifrom_Mowahada"
+            app:layout_constraintTop_toTopOf="@+id/lblTaxValue_exempted_unifrom_Mowahada" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 

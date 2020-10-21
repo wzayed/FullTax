@@ -5,33 +5,9 @@
     android:id="@+id/frameLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SegmentSimpleTaxFragment">
+    tools:context="com.tax.fulltax.SegmentSimpleTaxFragment">
 
     <!-- TODO: Update blank fragment layout -->
-
-    <TextView
-        android:id="@+id/lblNetProfit"
-        android:layout_width="143dp"
-        android:layout_height="56dp"
-        android:layout_marginTop="30dp"
-        android:text="صافى الـربح"
-        android:textAlignment="center"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <EditText
-        android:id="@+id/txtNetProfit"
-        android:layout_width="262dp"
-        android:layout_height="50dp"
-        android:ems="10"
-        android:inputType="numberSigned"
-        android:textAlignment="textEnd"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="@+id/lblNetProfit"
-        app:layout_constraintEnd_toStartOf="@+id/lblNetProfit"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/lblNetProfit" />
 
     <Button
         android:id="@+id/btnTaxCalc"
@@ -40,15 +16,20 @@
         android:onClick="calcTax_NoDiscount"
         android:text="إحسب الضريبة"
         android:textSize="24sp"
-        app:layout_constraintEnd_toStartOf="@+id/notExempted"
-        app:layout_constraintTop_toBottomOf="@+id/txtNetProfit" />
+        app:layout_constraintEnd_toStartOf="@+id/tgl_isExempted"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <CheckBox
-        android:id="@+id/notExempted"
-        android:layout_width="145dp"
-        android:layout_height="73dp"
-        android:text="بدون إعفاء"
+    <ToggleButton
+        android:id="@+id/tgl_isExempted"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableStart="@drawable/tglexemption"
+        android:textOff="    بدون إعفاءات"
+        android:textOn="   مع الإعفاءات"
+        android:checked="true"
         android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/btnTaxCalc"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/btnTaxCalc" />
 
@@ -82,29 +63,29 @@
             app:layout_constraintTop_toBottomOf="@+id/lblTaxRatio" />
 
         <TextView
-            android:id="@+id/lblResTaxRatio"
+            android:id="@+id/lblResTaxRatio_FragSmpl"
             android:layout_width="145dp"
             android:layout_height="58dp"
             android:layout_marginBottom="99dp"
             android:text="00.00"
             android:textAlignment="center"
             android:textSize="24sp"
-            app:layout_constraintBottom_toTopOf="@+id/lblResTaxValue"
+            app:layout_constraintBottom_toTopOf="@+id/lblResTaxValue_FragSmpl"
             app:layout_constraintEnd_toStartOf="@+id/lblTaxRatio"
             app:layout_constraintTop_toTopOf="@+id/lblTaxRatio" />
 
         <TextView
-            android:id="@+id/lblResTaxValue"
+            android:id="@+id/lblResTaxValue_FragSmpl"
             android:layout_width="145dp"
             android:layout_height="58dp"
             android:text="00.00"
             android:textAlignment="center"
             android:textSize="24sp"
             app:layout_constraintEnd_toStartOf="@+id/lblTaxValue"
-            app:layout_constraintTop_toBottomOf="@+id/lblResTaxRatio" />
+            app:layout_constraintTop_toBottomOf="@+id/lblResTaxRatio_FragSmpl" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-<!-- The Layout of the Exempted entities-->
+    <!-- The Layout of the Exempted entities-->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/frm_Exempted"
         android:layout_width="match_parent"
@@ -122,7 +103,7 @@
             app:layout_constraintEnd_toEndOf="@+id/frm_Exempted"
             app:layout_constraintTop_toTopOf="@+id/frm_Exempted" />
 
-          <TextView
+        <TextView
             android:id="@+id/lblResTaxValue2"
             android:layout_width="145dp"
             android:layout_height="58dp"
@@ -131,7 +112,7 @@
             android:textSize="24sp"
             app:layout_constraintEnd_toStartOf="@+id/lblTaxValue2"
             app:layout_constraintTop_toBottomOf="@+id/lblTaxValue2"
-              app:layout_constraintTop_toTopOf="@+id/frm_Exempted"/>
+            app:layout_constraintTop_toTopOf="@+id/frm_Exempted" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
