@@ -23,7 +23,7 @@
 
     <Button
         android:id="@+id/btnTaxCalc_uniform"
-        android:layout_width="160dp"
+        android:layout_width="wrap_content"
         android:layout_height="70dp"
         android:onClick="calcTax_Uniform_NoDiscount"
         android:text="إحسب الضريبة"

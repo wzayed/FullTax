@@ -57,6 +57,6 @@
         android:textAlignment="center"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="@+id/lblTaxValue"
-        app:layout_constraintEnd_toStartOf="@+id/lblTaxRatio" />
+        app:layout_constraintEnd_toStartOf="@+id/lblTaxValue" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

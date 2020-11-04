@@ -8,8 +8,8 @@
 
     <Spinner
         android:id="@+id/yearsSpinner"
-        android:layout_width="170dp"
-        android:layout_height="54dp"
+        android:layout_width="204dp"
+        android:layout_height="56dp"
         android:background="@null"
         android:drawSelectorOnTop="true"
         android:textSize="24sp"
@@ -18,21 +18,21 @@
 
     <TextView
         android:id="@+id/lblYear"
-        android:layout_width="147dp"
+        android:layout_width="wrap_content"
         android:layout_height="54dp"
-        android:layout_marginEnd="4dp"
         android:gravity="center_horizontal|center_vertical"
         android:text="السنة الضريبية"
         android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/lblNetProfit"
         app:layout_constraintTop_toTopOf="@+id/yearsSpinner"
         tools:ignore="RtlCompat"
         tools:text="السنة الضريبية" />
 
     <TextView
         android:id="@+id/lblNetProfit"
-        android:layout_width="143dp"
+        android:layout_width="wrap_content"
         android:layout_height="56dp"
+        android:gravity="center_horizontal|center_vertical"
         android:text="صافى الـربح"
         android:textAlignment="center"
         android:textSize="24sp"
@@ -41,24 +41,26 @@
 
     <EditText
         android:id="@+id/txtNetProfit"
-        android:layout_width="261dp"
+        android:layout_width="0dp"
         android:layout_height="50dp"
         android:ems="10"
+        android:gravity="center"
         android:inputType="numberSigned"
-        android:textAlignment="viewEnd"
+        android:textAlignment="gravity"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="@+id/lblNetProfit"
         app:layout_constraintEnd_toStartOf="@+id/lblNetProfit"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/lblNetProfit" />
 
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabPersonTypes"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-
         app:layout_constraintTop_toBottomOf="@+id/lblNetProfit"
         app:tabGravity="fill"
         app:tabIndicatorColor="@color/colorPrimaryDark"
@@ -71,13 +73,12 @@
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/viewPagerTab"
         android:layout_width="match_parent"
-        android:layout_height="413dp"
+        android:layout_height="0dp"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtNetProfit"
 
-        ></androidx.viewpager.widget.ViewPager>
+        app:layout_constraintTop_toBottomOf="@+id/tabPersonTypes"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

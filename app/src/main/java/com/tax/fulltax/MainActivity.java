@@ -55,16 +55,20 @@ public class MainActivity extends FragmentActivity {
         for (int i = 2021; i <= Calendar.getInstance().get(Calendar.YEAR); i++) {
             yearsList.add(Integer.toString(i));
         }
-        Collections.reverse(yearsList);  //Make the current and most recent years on the top
+        //commented in update 1.5 according to Alaa requirement
+      //  Collections.reverse(yearsList);  //Make the current and most recent years on the top
 
         yearsSpinner.setAdapter(arAdapterYearSpinner);
-
+        yearsSpinner.setSelection(yearsSpinner.getCount()-1);
         yearsSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 int currentYear = Calendar.getInstance().get(Calendar.YEAR);
-                int taxYear = currentYear - i;
+                ///////////////////////////////
+                // According to update 1.5
+               // int taxYear = currentYear - i;
+                int taxYear = 1981 + i;
 
                 if (theTaxEntity == null) {
                     int k = 0;
@@ -73,17 +77,16 @@ public class MainActivity extends FragmentActivity {
                     }
                     theTaxEntity = taxEntityFactory.createTaxYearEntity(taxYear);
                     yearsFragment = fragment_Index.fragmentIndex.get(k);
-                    Log.i("Debug-Year", Integer.toString(taxYear));
                 } else {
                     theTaxEntity = null;
                     yearsFragment = null;
-                    theTaxEntity = taxEntityFactory.createTaxYearEntity(taxYear);
                     int k = 0;
+                    theTaxEntity = taxEntityFactory.createTaxYearEntity(taxYear);
+
                     while (taxYear > fragment_Index.fragmentIndex.get(k).toYear) {
                         k++;
                     }
                     yearsFragment = fragment_Index.fragmentIndex.get(k);
-                    Log.i("Debug-Year", Integer.toString(taxYear));
                 }
                 configTabLayout();
             }

@@ -33,7 +33,6 @@ public class MyTabViewPager extends FragmentStatePagerAdapter {
 
     @Override
     public int getCount() {
-        Log.i("Type",this.yearsFragment.fragments.get(0).getClass().toString());
         return this.tabCount;
     }
 
