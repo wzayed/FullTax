@@ -5,10 +5,10 @@ android {
     compileOptions.encoding = 'UTF8'
     defaultConfig {
         applicationId "com.tax.fulltax"
-        minSdkVersion 25
+        minSdkVersion 22
         targetSdkVersion 29
         versionCode 18
-        versionName "2.0"
+        versionName "1.8"
         android.defaultConfig.ndk.debugSymbolLevel = 'FULL'
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }

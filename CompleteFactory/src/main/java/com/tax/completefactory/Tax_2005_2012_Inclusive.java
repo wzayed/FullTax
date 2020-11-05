@@ -71,7 +71,7 @@ public class  Tax_2005_2012_Inclusive implements ITax {
         return tabs;
     }
     public String get_WhichRuleAmI(){
-        return "Tax_From_To_2005_2012_Inclusive" + "\n" + theTaxRule.lawInfo;
+        return  theTaxRule.lawInfo; //return "Tax_From_To_2005_2012_Inclusive" + "\n" + theTaxRule.lawInfo;
     }
 
     public double getTaxRatioLegalEntity(){

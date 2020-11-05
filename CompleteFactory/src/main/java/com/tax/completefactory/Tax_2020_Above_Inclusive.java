@@ -75,7 +75,7 @@ public class  Tax_2020_Above_Inclusive implements ITax{
     }
 
     public String get_WhichRuleAmI(){
-        return "Tax_2020_Above_Inclusive" + "\n" + theTaxRule.lawInfo;
+        return  theTaxRule.lawInfo;//return "Tax_2020_Above_Inclusive" + "\n" + theTaxRule.lawInfo;
     }
 
     public double getTaxRatioLegalEntity(){

@@ -37,15 +37,17 @@ public class MainActivity extends FragmentActivity {
     private final ITaxYearEntity taxEntityFactory = new ConcreteTaxYearEntityFactory();
     private final FragmentIndex fragment_Index = new FragmentIndex();
     private YearsFragment yearsFragment;
-
+    TextView lblTaxLaw;
     @Override
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
       //   requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main);
+        lblTaxLaw = (TextView) findViewById(R.id.lblTaxLaw);
 
         Spinner yearsSpinner = findViewById(R.id.yearsSpinner);
+
         List<String> yearsList = new ArrayList<String>();
         ArrayAdapter<String> arAdapterYearSpinner = new ArrayAdapter<String>(this,
                 R.layout.custom_list_item, yearsList);
@@ -88,6 +90,7 @@ public class MainActivity extends FragmentActivity {
                     }
                     yearsFragment = fragment_Index.fragmentIndex.get(k);
                 }
+                lblTaxLaw.setText("طبقا ل : " + theTaxEntity.get_WhichRuleAmI());
                 configTabLayout();
             }
 
@@ -138,6 +141,13 @@ public class MainActivity extends FragmentActivity {
         }
     }
     public void calcTax_Uniform_NoDiscount_Commercial(View view){
+        // if year = 1981 or 1982 then show fragment that this rules applies from 1983
+        Spinner yearsSpinner=(Spinner) findViewById(R.id.yearsSpinner);
+
+        if(yearsSpinner.getSelectedItem().toString().equals("1981") || yearsSpinner.getSelectedItem().toString().equals("1982")  ){
+            showCustomToast("هذا القانون ينطبق على الأرباح النجارية و الصناعية أعتبارا من السنة المالية 1983 بينما ينطبق على المهن الحرة إعتبارا من 1981");
+            return;
+        }
         try {
             UniformTaxFragment_Commercial uniformTaxSegmentCommercial = (UniformTaxFragment_Commercial)
                     this.yearsFragment.fragments.get(1);

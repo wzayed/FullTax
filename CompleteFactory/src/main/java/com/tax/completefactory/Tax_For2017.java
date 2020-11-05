@@ -92,7 +92,7 @@ public class  Tax_For2017 implements ITax{
         return tabs;
     }
     public String get_WhichRuleAmI(){
-        return "Tax_For2017" + "\n" + theTaxRule.lawInfo;
+        return  theTaxRule.lawInfo;//return "Tax_For2017" + "\n" + theTaxRule.lawInfo;
     }
 
     public double getTaxRatioLegalEntity(){

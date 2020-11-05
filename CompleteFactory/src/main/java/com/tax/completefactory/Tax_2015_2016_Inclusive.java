@@ -72,7 +72,7 @@ public class  Tax_2015_2016_Inclusive implements ITax {
     }
 
     public String get_WhichRuleAmI(){
-        return "Tax_From_To_2015_2016_Inclusive" + "\n" + theTaxRule.lawInfo;
+        return  theTaxRule.lawInfo;//return "Tax_From_To_2015_2016_Inclusive" + "\n" + theTaxRule.lawInfo;
     }
 
     public double getTaxRatioLegalEntity(){

@@ -104,7 +104,7 @@ public class  Tax_1998_2004_Inclusive implements ITax{
         return tabs;
     }
     public String get_WhichRuleAmI(){
-        return "Tax_From_To_1998_2004_Inclusive" + "\n" + lawInfo;
+        return  lawInfo; //return "Tax_From_To_1998_2004_Inclusive" + "\n" + lawInfo;
     }
 
     public double getTaxRatioLegalEntity(){

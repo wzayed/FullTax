@@ -94,7 +94,7 @@ public class  Tax_2018_2019_Inclusive implements ITax {
     }
 
     public String get_WhichRuleAmI(){
-        return "Tax_From_To_2018_2019_Inclusive" + "\n" + theTaxRule.lawInfo;
+        return  theTaxRule.lawInfo; //return "Tax_From_To_2018_2019_Inclusive" + "\n" + theTaxRule.lawInfo;
     }
     public double getTaxRatioLegalEntity(){
         return theTaxRule.TAXForLegalPerson;

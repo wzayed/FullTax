@@ -103,7 +103,7 @@ class  Tax_1981_1993_Inclusive implements ITax {
         return tabs;
     }
     public String get_WhichRuleAmI(){
-        return "Tax_From_To_1981_1993_Inclusive" + "\n" + lawInfo;
+        return  lawInfo;//return "Tax_From_To_1981_1993_Inclusive" + "\n" + lawInfo;
     }
 
     public double getTaxRatioLegalEntity(){
