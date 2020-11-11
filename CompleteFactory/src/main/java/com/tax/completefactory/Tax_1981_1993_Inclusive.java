@@ -116,4 +116,9 @@ class  Tax_1981_1993_Inclusive implements ITax {
     public double getDiscount_NormalPerson_WithDiscount(){
         return 0;
     }
+
+    public <Any> Any getTaxStructure(){
+        Integer b=1;
+        return ((Any)((Integer) b));
+    }
 } ///End Of class

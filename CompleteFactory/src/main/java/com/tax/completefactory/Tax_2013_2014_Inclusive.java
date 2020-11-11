@@ -60,7 +60,10 @@ public class  Tax_2013_2014_Inclusive implements ITax{
         taxValue=taxBase*noOfMonthes*theTaxRule.taxSegments.get(theTaxRule.taxSegments.size() - 1).taxPercentageInThisSegment/1200; //1200for Percentage
         return this.taxValue;
     }
+    public <Any> Any getTaxStructure(){
 
+        return (Any)(theTaxRule.getTaxSegments()) ;
+    }
     public int getTabCount(){
         return  tabs.length;
     }

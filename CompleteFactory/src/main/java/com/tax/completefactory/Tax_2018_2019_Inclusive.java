@@ -78,8 +78,6 @@ public class  Tax_2018_2019_Inclusive implements ITax {
     }
     public double getTax_NormalPerson_WithoutDiscount(double noOfMonthes)                   //End For Individuals
     {
-
-
         return this.taxValue;
     }
     public double getDiscount_NormalPerson_WithDiscount(){
@@ -88,7 +86,10 @@ public class  Tax_2018_2019_Inclusive implements ITax {
     public int getTabCount(){
         return  tabs.length;
     }
-
+    public <Any> Any getTaxStructure(){
+        Integer b=1;
+        return ((Any)((Integer) b));
+    }
     public String[] getTabHeaders(){
         return tabs;
     }

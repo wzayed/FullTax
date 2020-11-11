@@ -12,6 +12,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
@@ -20,6 +22,8 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import com.tax.completefactory.TaxStructure_2005_2016_Inclusive;
+import com.tax.completefactory.TaxStructure_2020_Inclusive;
 import com.tax.fulltax.R;
 import com.google.android.material.tabs.TabLayout;
 import com.tax.completefactory.ConcreteTaxYearEntityFactory;
@@ -32,8 +36,10 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 
+import static com.tax.completefactory.Constants.MAX_VALUE_INT;
+
 public class MainActivity extends FragmentActivity {
-    private ITax theTaxEntity = null;
+    private  ITax theTaxEntity = null;
     private final ITaxYearEntity taxEntityFactory = new ConcreteTaxYearEntityFactory();
     private final FragmentIndex fragment_Index = new FragmentIndex();
     private YearsFragment yearsFragment;
@@ -134,6 +140,54 @@ public class MainActivity extends FragmentActivity {
             //Add Marital Status if the year is <=2005
             Segment_Simple_frag.update_Tax_Texts(theTaxEntity.getTaxRatioNormalPerson_Without_exemption(),
                     theTaxEntity.getTax_NormalPerson_WithExemption(12), theTaxEntity.getTax_NormalPersonWithout_Exemption(12));
+            //END of Showtax without details
+
+
+            //BEGIN ofShowing the details of exempted entities tax
+            //We need to get the list inside the taxrule
+
+            //  get the list of TextViews in the container and access the array
+            ArrayList<TextView> tvArrayinTable=getTVArrayinTable();
+
+            //If year 2020 and above gerList<Tax2020>
+            Spinner yearSpinner=(Spinner) findViewById(R.id.yearsSpinner);
+
+            ArrayList<TaxStructure_2020_Inclusive> taxstructure2020;
+            ArrayList<TaxStructure_2005_2016_Inclusive> taxstructure;
+
+            if(Integer.parseInt(yearSpinner.getSelectedItem().toString()) >= 2020) {
+                //Make 6th and 7th row visible
+                TableRow tr6=(TableRow) findViewById(R.id.sixthRowColor);
+                TableRow tr7=(TableRow) findViewById(R.id.seventhRow);
+
+                tr6.setVisibility(View.VISIBLE);
+                tr7.setVisibility(View.VISIBLE);
+
+                 taxstructure2020 = theTaxEntity.getTaxStructure();
+                for(int i=0; i< taxstructure2020.size(); i++) {
+                    TaxStructure_2020_Inclusive mdl2020=taxstructure2020.get(i);
+                    tvArrayinTable.get(i*5).setText(Double.toString(mdl2020.getTaxValueInThisSegment()));
+                    tvArrayinTable.get(i*5+1).setText(Double.toString(mdl2020.getTaxPercentageInThisSegment()));
+                    tvArrayinTable.get(i*5+2).setText((mdl2020.getToAmount()==MAX_VALUE_INT) ? "-" : Integer.toString(mdl2020.getToAmount()) );
+                    tvArrayinTable.get(i*5+3).setText(Integer.toString(mdl2020.getFromAmount()));
+                    // tvArrayinTable.get(i*5+4).setText(); // This one contains the segment
+                }
+            }
+             else {
+                //Else get the list of 2005 to 2016 Inclusive
+                taxstructure = theTaxEntity.getTaxStructure();
+
+                for(int i=0; i< taxstructure.size(); i++) {
+                    TaxStructure_2005_2016_Inclusive mdl20052016=taxstructure.get(i);
+                    tvArrayinTable.get(i*5).setText(Double.toString(mdl20052016.getTaxValueInThisSegment()));
+                    tvArrayinTable.get(i*5+1).setText(Double.toString(mdl20052016.getTaxPercentageInThisSegment()));
+                    tvArrayinTable.get(i*5+2).setText((mdl20052016.getToAmount()==MAX_VALUE_INT) ? "-" : Integer.toString(mdl20052016.getToAmount()) );
+                    tvArrayinTable.get(i*5+3).setText(Integer.toString(mdl20052016.getFromAmount()));
+                    // tvArrayinTable.get(i*5+4).setText(); // This one contains the segment
+                }
+            }
+              //Fill The Array of TextViews we got before from the table
+
         }
         catch(NumberFormatException ex){
             //Custom Toast
@@ -262,7 +316,6 @@ public class MainActivity extends FragmentActivity {
 
     }
 
-
     public void showCustomToast(String toastMsg){
         LayoutInflater inflater=getLayoutInflater();
         ViewGroup layOut=(ViewGroup) inflater.inflate(R.layout.toastalert,(ViewGroup) findViewById(R.id.toastAlertContainer));
@@ -286,5 +339,24 @@ public class MainActivity extends FragmentActivity {
 
     }
 
+    ArrayList<TextView> getTVArrayinTable(){
+        ArrayList<TextView> tvArray=new ArrayList<TextView>();
 
-}
+        TableLayout tblLayout= (TableLayout) findViewById(R.id.tblTaxDetails);
+        boolean headerRow=true;
+        for(int i=0;i< tblLayout.getChildCount();i++){
+            if(tblLayout.getChildAt(i) instanceof TableRow) {
+            if(headerRow) headerRow=false;  // the header row
+            else {
+                ViewGroup tblrow = ((ViewGroup) tblLayout.getChildAt(i));
+                for (int k = 0; k < tblrow.getChildCount(); k++) {
+                    if (tblrow.getChildAt(k) instanceof TextView) {
+                        tvArray.add((TextView) tblrow.getChildAt(k));
+                    }
+                }
+            }
+            }
+        }
+        return tvArray;
+    }
+} //End of the class

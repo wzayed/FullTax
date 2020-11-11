@@ -5,7 +5,7 @@ android {
     compileOptions.encoding = 'UTF8'
     defaultConfig {
         applicationId "com.tax.fulltax"
-        minSdkVersion 22
+        minSdkVersion 21
         targetSdkVersion 29
         versionCode 18
         versionName "1.8"

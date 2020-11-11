@@ -8,8 +8,8 @@ public class  TaxRule_2020_And_Above{
 
     final double TAXForLegalPerson=22.5;
 
-    List<TaxStructure_2020_Inclusive> taxSegments=new ArrayList<TaxStructure_2020_Inclusive>();
-    List<TaxLayersStructure2020> taxLayers= new ArrayList<TaxLayersStructure2020>();
+    ArrayList<TaxStructure_2020_Inclusive> taxSegments=new ArrayList<TaxStructure_2020_Inclusive>();
+    ArrayList<TaxLayersStructure2020> taxLayers= new ArrayList<TaxLayersStructure2020>();
     TaxRule_2020_And_Above(){
         this.taxSegments.add(new TaxStructure_2020_Inclusive(1,15000,0));
         this.taxSegments.add(new TaxStructure_2020_Inclusive(15001,30000,2.5));
@@ -28,6 +28,8 @@ public class  TaxRule_2020_And_Above{
         this.taxLayers.add(new TaxLayersStructure2020(900001,1000000,4));
         this.taxLayers.add(new TaxLayersStructure2020(1000001,Constants.MAX_VALUE_INT,5));
     }
-
+    public ArrayList<TaxStructure_2020_Inclusive> getTaxSegments(){
+        return taxSegments;
+    }
     //tax_layers start_at_segment
 }

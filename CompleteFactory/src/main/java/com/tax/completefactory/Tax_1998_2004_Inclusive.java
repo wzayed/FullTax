@@ -96,6 +96,10 @@ public class  Tax_1998_2004_Inclusive implements ITax{
 
         return this.taxValue;
     }
+    public <Any> Any getTaxStructure(){
+        Integer b=1;
+        return ((Any)((Integer) b));
+    }
     public int getTabCount(){
         return  tabs.length;
     }

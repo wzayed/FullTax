@@ -4,13 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/relativeLayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@null">
 
     <Spinner
         android:id="@+id/yearsSpinner"
+        style="@null"
         android:layout_width="204dp"
         android:layout_height="56dp"
-        android:background="@null"
         android:drawSelectorOnTop="true"
         android:textSize="24sp"
         app:layout_constraintEnd_toStartOf="@+id/lblYear"
@@ -21,6 +22,7 @@
         android:layout_width="wrap_content"
         android:layout_height="54dp"
         android:gravity="center_horizontal|center_vertical"
+        android:layout_marginRight="5dp"
         android:text="السنة الضريبية"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="@+id/lblNetProfit"
@@ -31,19 +33,21 @@
         android:id="@+id/lblTaxLaw"
         android:layout_width="0dp"
         android:layout_height="54dp"
+        android:background="@drawable/textviewborder"
         android:gravity="center_horizontal|center_vertical"
         android:text="القانون الذى تحسب على أساسه الضريبة"
-        android:background="@drawable/textviewborder"
         android:textColor="#DB3922"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/yearsSpinner" />
+
     <TextView
         android:id="@+id/lblNetProfit"
         android:layout_width="wrap_content"
         android:layout_height="56dp"
         android:gravity="center_horizontal|center_vertical"
+        android:layout_marginRight="5dp"
         android:text="صافى الـربح"
         android:textAlignment="center"
         android:textSize="24sp"
@@ -91,5 +95,5 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintStart_toStartOf="parent"
 
-        app:layout_constraintTop_toBottomOf="@+id/tabPersonTypes"/>
+        app:layout_constraintTop_toBottomOf="@+id/tabPersonTypes" />
 </androidx.constraintlayout.widget.ConstraintLayout>

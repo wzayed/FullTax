@@ -11,6 +11,7 @@ import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
+import com.tax.completefactory.ITax;
 import com.tax.fulltax.R;
 
 import static android.widget.CompoundButton.*;
@@ -78,6 +79,9 @@ public class SegmentSimpleTaxFragment extends Fragment {
                 if(tgl_isExempted.isChecked()){
                     frm_NON_Exempted.setVisibility(View.INVISIBLE);
                     frm_Exempted.setVisibility(View.VISIBLE);
+                    //Show the Tax table here depending upon the year
+                //    MainActivity mainActivity= (MainActivity) getActivity();
+                //    ITax taxEntity=mainActivity.getTheTaxEntity();
                 }
                 else
                 {
@@ -95,6 +99,7 @@ public class SegmentSimpleTaxFragment extends Fragment {
         if(tgl_isExempted.isChecked()){
             TextView txt_taxValue2= getActivity().findViewById(R.id.lblResTaxValue2);
             txt_taxValue2.setText(String.format("%.2f",taxValueExempted));
+
         }
         else{
             TextView txt_taxValue= getActivity().findViewById(R.id.lblResTaxValue_FragSmpl);
@@ -102,6 +107,5 @@ public class SegmentSimpleTaxFragment extends Fragment {
             txt_taxPercentage.setText(String.format("%.2f%%",taxPercentage));
             txt_taxValue.setText(String.format("%.2f",taxValueUnExempted));
         }
-
     }
 }

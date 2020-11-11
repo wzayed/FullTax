@@ -8,11 +8,14 @@ public class  TaxRule_2005_2012_Inclusive{
 
     final double TAXForLegalPerson=20.0;
 
-    List<com.tax.completefactory.TaxStructure_2005_2016_Inclusive> taxSegments=new ArrayList<com.tax.completefactory.TaxStructure_2005_2016_Inclusive>();
+    ArrayList<com.tax.completefactory.TaxStructure_2005_2016_Inclusive> taxSegments=new ArrayList<com.tax.completefactory.TaxStructure_2005_2016_Inclusive>();
     TaxRule_2005_2012_Inclusive(){
         this.taxSegments.add(new com.tax.completefactory.TaxStructure_2005_2016_Inclusive(1,5000,0));
         this.taxSegments.add(new com.tax.completefactory.TaxStructure_2005_2016_Inclusive(5001,20000,10));
         this.taxSegments.add(new com.tax.completefactory.TaxStructure_2005_2016_Inclusive(20001,40000,15));
         this.taxSegments.add(new TaxStructure_2005_2016_Inclusive(40001,Constants.MAX_VALUE_INT,20));
+    }
+    public ArrayList<TaxStructure_2005_2016_Inclusive> getTaxSegments(){
+        return taxSegments;
     }
 }

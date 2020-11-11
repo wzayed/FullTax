@@ -62,7 +62,10 @@ public class  Tax_2005_2012_Inclusive implements ITax {
         taxValue=taxBase*noOfMonthes*theTaxRule.taxSegments.get(theTaxRule.taxSegments.size() - 1).taxPercentageInThisSegment/1200; //1200for Percentage
         return this.taxValue;
     }
+    public <Any> Any getTaxStructure(){
 
+        return (Any)(theTaxRule.getTaxSegments()) ;
+    }
     public int getTabCount(){
         return  tabs.length;
     }
@@ -104,4 +107,5 @@ public class  Tax_2005_2012_Inclusive implements ITax {
     public double getDiscount_NormalPerson_WithDiscount(){
         return 0;
     }
+
 } ///End Of class

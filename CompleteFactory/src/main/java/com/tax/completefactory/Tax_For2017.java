@@ -87,7 +87,10 @@ public class  Tax_For2017 implements ITax{
     public int getTabCount(){
         return  tabs.length;
     }
-
+    public <Any> Any getTaxStructure(){
+        Integer b=1;
+        return ((Any)((Integer) b));
+    }
     public String[] getTabHeaders(){
         return tabs;
     }

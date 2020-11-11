@@ -23,4 +23,5 @@ public interface ITax{
 
      double getTaxRatioNormalPerson_Without_exemption();
 
+    <Any> Any getTaxStructure();
 }
