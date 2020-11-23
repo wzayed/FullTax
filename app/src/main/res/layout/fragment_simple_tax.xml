@@ -11,23 +11,24 @@
 
     <Button
         android:id="@+id/btnTaxCalc"
-        android:layout_width="160dp"
+        android:layout_width="0dp"
         android:layout_height="60dp"
         android:onClick="calcTax_NoDiscount"
         android:text="إحسب الضريبة"
-        android:textSize="24sp"
+        android:textSize="20sp"
         app:layout_constraintEnd_toStartOf="@+id/tgl_isExempted"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ToggleButton
         android:id="@+id/tgl_isExempted"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:checked="true"
         android:drawableStart="@drawable/tglexemption"
         android:textOff="    بدون إعفاءات"
         android:textOn="   مع الإعفاءات"
-        android:checked="true"
-        android:textSize="24sp"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/btnTaxCalc"
         app:layout_constraintEnd_toEndOf="parent"
@@ -45,10 +46,11 @@
             android:id="@+id/lblTaxRatio"
             android:layout_width="145dp"
             android:layout_height="58dp"
-            android:layout_marginTop="4dp"
+            android:gravity="center"
             android:text="نسبة الضريبة"
             android:textAlignment="center"
             android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/lblTaxValue"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -56,6 +58,7 @@
             android:id="@+id/lblTaxValue"
             android:layout_width="145dp"
             android:layout_height="58dp"
+            android:gravity="center"
             android:text="قيمة الضريبة"
             android:textAlignment="center"
             android:textSize="24sp"
@@ -66,28 +69,31 @@
             android:id="@+id/lblResTaxRatio_FragSmpl"
             android:layout_width="145dp"
             android:layout_height="58dp"
-            android:layout_marginBottom="99dp"
+            android:background="@drawable/textviewborder"
+            android:gravity="center|center_vertical"
             android:text="00.00"
             android:textAlignment="center"
             android:textSize="24sp"
-            app:layout_constraintBottom_toTopOf="@+id/lblResTaxValue_FragSmpl"
             app:layout_constraintEnd_toStartOf="@+id/lblTaxRatio"
-            app:layout_constraintTop_toTopOf="@+id/lblTaxRatio" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/lblResTaxValue_FragSmpl"
             android:layout_width="145dp"
             android:layout_height="58dp"
+            android:background="@drawable/textviewborder"
+            android:gravity="center|center_vertical"
             android:text="00.00"
-            android:textAlignment="center"
+            android:textAlignment="gravity"
             android:textSize="24sp"
             app:layout_constraintEnd_toStartOf="@+id/lblTaxValue"
-            app:layout_constraintTop_toBottomOf="@+id/lblResTaxRatio_FragSmpl" />
+            app:layout_constraintTop_toBottomOf="@+id/lblTaxRatio" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <!-- The Layout of the Exempted entities-->
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/frm_Exempted"
         android:layout_width="0dp"
@@ -196,7 +202,7 @@
                     android:gravity="center"
                     android:text=""
                     android:textSize="18sp"
-                     />
+                    />
 
                 <TextView
                     android:id="@+id/r13"
@@ -208,7 +214,7 @@
                     android:gravity="center"
                     android:text=" "
                     android:textSize="18sp"
-                     />
+                    />
 
                 <TextView
                     android:id="@+id/r12"
@@ -220,7 +226,7 @@
                     android:gravity="center"
                     android:text=""
                     android:textSize="18sp"
-                     />
+                    />
 
                 <TextView
                     android:id="@+id/r11"
@@ -257,7 +263,7 @@
                     android:gravity="center"
                     android:text=""
                     android:textSize="18sp"
-                     />
+                    />
 
                 <TextView
                     android:id="@+id/r23"
@@ -269,7 +275,7 @@
                     android:gravity="center"
                     android:text=" "
                     android:textSize="18sp"
-                     />
+                    />
 
                 <TextView
                     android:id="@+id/r22"
@@ -281,7 +287,7 @@
                     android:gravity="center"
                     android:text=""
                     android:textSize="18sp"
-                     />
+                    />
 
                 <TextView
                     android:id="@+id/r21"
@@ -293,7 +299,7 @@
                     android:gravity="center"
                     android:text=""
                     android:textSize="18sp"
-                     />
+                    />
                 <TextView
                     android:id="@+id/r20"
                     android:layout_column="3"
@@ -317,7 +323,7 @@
                     android:gravity="center"
                     android:text=""
                     android:textSize="18sp"
-                     />
+                    />
 
                 <TextView
                     android:id="@+id/r33"
@@ -329,7 +335,7 @@
                     android:gravity="center"
                     android:text=" "
                     android:textSize="18sp"
-                     />
+                    />
 
                 <TextView
                     android:id="@+id/r32"
@@ -341,7 +347,7 @@
                     android:gravity="center"
                     android:text=""
                     android:textSize="18sp"
-                     />
+                    />
 
                 <TextView
                     android:id="@+id/r31"
@@ -353,9 +359,9 @@
                     android:gravity="center"
                     android:text=""
                     android:textSize="18sp"
-                     />
+                    />
                 <TextView
-                    android:id="@+id/r3m0"
+                    android:id="@+id/r30"
                     android:layout_column="3"
                     android:layout_marginRight="1dp"
                     android:layout_marginBottom="1dp"
@@ -377,7 +383,7 @@
                     android:gravity="center"
                     android:text=""
                     android:textSize="18sp"
-                     />
+                    />
 
                 <TextView
                     android:id="@+id/r43"
@@ -389,7 +395,7 @@
                     android:gravity="center"
                     android:text=" "
                     android:textSize="18sp"
-                     />
+                    />
 
                 <TextView
                     android:id="@+id/r42"
@@ -401,7 +407,7 @@
                     android:gravity="center"
                     android:text=""
                     android:textSize="18sp"
-                     />
+                    />
 
                 <TextView
                     android:id="@+id/r41"
@@ -413,7 +419,7 @@
                     android:gravity="center"
                     android:text=""
                     android:textSize="18sp"
-                     />
+                    />
                 <TextView
                     android:id="@+id/r40"
                     android:layout_column="3"
@@ -424,7 +430,7 @@
                     android:gravity="center"
                     android:text="4"
                     android:textSize="18sp"
-                     />
+                    />
             </TableRow>
             <TableRow android:id="@+id/fifththRow" >
                 <TextView
@@ -437,7 +443,7 @@
                     android:gravity="center"
                     android:text=""
                     android:textSize="18sp"
-                     />
+                    />
 
                 <TextView
                     android:id="@+id/r53"
@@ -461,7 +467,7 @@
                     android:gravity="center"
                     android:text=""
                     android:textSize="18sp"
-                     />
+                    />
 
                 <TextView
                     android:id="@+id/r51"
@@ -473,7 +479,7 @@
                     android:gravity="center"
                     android:text=""
                     android:textSize="18sp"
-                     />
+                    />
 
                 <TextView
                     android:id="@+id/r50"
@@ -499,7 +505,7 @@
                     android:gravity="center"
                     android:text=""
                     android:textSize="18sp"
-                     />
+                    />
 
                 <TextView
                     android:id="@+id/r63"
@@ -511,7 +517,7 @@
                     android:gravity="center"
                     android:text=" "
                     android:textSize="18sp"
-                     />
+                    />
 
                 <TextView
                     android:id="@+id/r62"
@@ -523,7 +529,7 @@
                     android:gravity="center"
                     android:text=""
                     android:textSize="18sp"
-                     />
+                    />
 
                 <TextView
                     android:id="@+id/r61"
@@ -535,7 +541,7 @@
                     android:gravity="center"
                     android:text=""
                     android:textSize="18sp"
-                     />
+                    />
                 <TextView
                     android:id="@+id/r60"
                     android:layout_column="3"
@@ -559,7 +565,7 @@
                     android:gravity="center"
                     android:text=""
                     android:textSize="18sp"
-                     />
+                    />
 
                 <TextView
                     android:id="@+id/r73"
@@ -571,7 +577,7 @@
                     android:gravity="center"
                     android:text=" "
                     android:textSize="18sp"
-                     />
+                    />
 
                 <TextView
                     android:id="@+id/r72"
@@ -583,7 +589,7 @@
                     android:gravity="center"
                     android:text=""
                     android:textSize="18sp"
-                     />
+                    />
 
                 <TextView
                     android:id="@+id/r71"
@@ -595,7 +601,7 @@
                     android:gravity="center"
                     android:text=""
                     android:textSize="18sp"
-                     />
+                    />
 
                 <TextView
                     android:id="@+id/r70"
@@ -610,8 +616,20 @@
                     android:textSize="18sp"
                     android:textStyle="bold" />
             </TableRow>
-           </TableLayout>
-
+        </TableLayout>
+        <TextView
+            android:id="@+id/taxlayer"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_column="3"
+            android:layout_marginRight="1dp"
+            android:layout_marginBottom="1dp"
+            android:layout_weight="1"
+            android:background="@drawable/textviewborder"
+            android:gravity="center"
+            android:textSize="18sp"
+            app:layout_constraintTop_toBottomOf="@id/tblTaxDetails"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

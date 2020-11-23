@@ -83,15 +83,22 @@ public class UniformTaxFragment extends Fragment {
         Exempted_TVtaxVaue = getActivity().findViewById(R.id.lblResTaxValue_exempted_uniform);
 
         socialStatus= getActivity().findViewById(R.id.socialStatus_WithoutCommercialComp);
-        ArrayList<SocialStatus> socialStatusAL=new ArrayList<SocialStatus>();
 
+        ArrayList<String> socialStatusAL=new ArrayList<String>();
+
+        socialStatusAL.add("أعزب");
+        socialStatusAL.add("متزوج لا يعول");
+        socialStatusAL.add("غير متزوج و يعول");
+        socialStatusAL.add("متزوج و يعول");
+
+    /*    ArrayList<SocialStatus> socialStatusAL=new ArrayList<SocialStatus>();
         socialStatusAL.add(SocialStatus.Single);
         socialStatusAL.add(SocialStatus.MarriedNotSponsoring);
         socialStatusAL.add(SocialStatus.NotMarriedSponsor);
-        socialStatusAL.add(SocialStatus.MarriedSponsor);
+        socialStatusAL.add(SocialStatus.MarriedSponsor);*/
 
-        ArrayAdapter<SocialStatus> scAdapter=
-                new ArrayAdapter<SocialStatus>(getActivity(),R.layout.custom_list_item_20dp, socialStatusAL);
+        ArrayAdapter<String> scAdapter=
+                new ArrayAdapter<String>(getActivity(),R.layout.custom_list_item_20dp, socialStatusAL);
         socialStatus.setAdapter(scAdapter);
 
         tgl_isExempted= getActivity().findViewById(R.id.tgl_isExempted_uniform);

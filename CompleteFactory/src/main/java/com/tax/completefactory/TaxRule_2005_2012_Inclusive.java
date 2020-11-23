@@ -18,4 +18,9 @@ public class  TaxRule_2005_2012_Inclusive{
     public ArrayList<TaxStructure_2005_2016_Inclusive> getTaxSegments(){
         return taxSegments;
     }
+    public void clearTaxValuesInTheArray(){
+        for(int i=0 ; i< taxSegments.size()  ;i++){
+            taxSegments.get(i).taxValueInThisSegment=0;
+        }
+    }
 }

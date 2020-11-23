@@ -36,13 +36,13 @@ class  Tax_1981_1993_Inclusive implements ITax {
     }
     public double getTax_LegalPerson()                    //On and After 2005
     {
-
+        clear_tax_values();
         if(taxBase==0) return 0 ;
         int i=0;
         while(taxBase > theTaxRule.taxSegmentsCommercialsAndIndustrial.get(i).toAmount){
             i++;
         }
-        this.taxValue=taxBase*theTaxRule.taxSegmentsCommercialsAndIndustrial.get(i).taxPercentage/100
+        this.taxValue=theTaxRule.taxSegmentsCommercialsAndIndustrial.get(i).taxValueBeforeDiscount=taxBase*theTaxRule.taxSegmentsCommercialsAndIndustrial.get(i).taxPercentage/100
                 - theTaxRule.taxSegmentsCommercialsAndIndustrial.get(i).taxDiscountAmount;
 
         return this.taxValue;
@@ -50,36 +50,42 @@ class  Tax_1981_1993_Inclusive implements ITax {
 
     public double getTax_NormalPerson_WithExemption(double noOfMonthes, SocialStatus sc)      //This and Next functions are For Individuals
     {
+        clear_tax_values();
         double taxbaseAfterExemption=this.taxBase - taxExemption.exemptions.get(sc);
 
         if(taxbaseAfterExemption<=0) return 0 ;
         int i=0;
-        while(taxbaseAfterExemption > theTaxRule.taxSegmentsCommercialsAndIndustrial.get(i).toAmount){
+        while(taxbaseAfterExemption > theTaxRule.taxSegmentsProfession.get(i).toAmount){
             i++;
         }
         this.taxValue=taxbaseAfterExemption*(noOfMonthes/12)
-                * (theTaxRule.taxSegmentsCommercialsAndIndustrial.get(i).taxPercentage/100)
-                - theTaxRule.taxSegmentsCommercialsAndIndustrial.get(i).taxDiscountAmount;
-
+                * (theTaxRule.taxSegmentsProfession.get(i).taxPercentage/100)
+                - theTaxRule.taxSegmentsProfession.get(i).taxDiscountAmount;
+        theTaxRule.taxSegmentsProfession.get(i).taxValueBeforeDiscount=taxbaseAfterExemption*(noOfMonthes/12)
+                * (theTaxRule.taxSegmentsProfession.get(i).taxPercentage/100);
         return this.taxValue;
     }
     public double getTax_NormalPerson_WithExemption(double noOfMonthes)                     //On and After 2005
     {
+        clear_tax_values();
         double taxbaseAfterExemption=this.taxBase - taxExemption.exemptions.get(this.socialStatus);
 
         if(taxbaseAfterExemption<=0) return 0 ;
         int i=0;
-        while(taxbaseAfterExemption > theTaxRule.taxSegmentsCommercialsAndIndustrial.get(i).toAmount){
+        while(taxbaseAfterExemption > theTaxRule.taxSegmentsProfession.get(i).toAmount){
             i++;
         }
         this.taxValue=taxbaseAfterExemption*(noOfMonthes/12)
-                * (theTaxRule.taxSegmentsCommercialsAndIndustrial.get(i).taxPercentage/100)
-                - theTaxRule.taxSegmentsCommercialsAndIndustrial.get(i).taxDiscountAmount;
+                * (theTaxRule.taxSegmentsProfession.get(i).taxPercentage/100)
+                - theTaxRule.taxSegmentsProfession.get(i).taxDiscountAmount;
+        theTaxRule.taxSegmentsProfession.get(i).taxValueBeforeDiscount=taxbaseAfterExemption*(noOfMonthes/12)
+                * (theTaxRule.taxSegmentsProfession.get(i).taxPercentage/100);
 
         return this.taxValue;
     }
     public double getTax_NormalPersonWithout_Exemption(double noOfMonthes)                  //////
     {
+        clear_tax_values();
         this.taxValue=taxBase*noOfMonthes*theTaxRule.taxSegmentsProfession.get(theTaxRule.taxSegmentsProfession.size() - 1).taxPercentage/1200; //1200for Percentage
         return this.taxValue;
     }
@@ -94,6 +100,9 @@ class  Tax_1981_1993_Inclusive implements ITax {
 
 
         return this.taxValue;
+    }
+    public <Any> Any getTaxStructure(){
+        return (Any)(theTaxRule.getTaxSegments()) ;
     }
     public int getTabCount(){
         return  tabs.length;
@@ -116,9 +125,8 @@ class  Tax_1981_1993_Inclusive implements ITax {
     public double getDiscount_NormalPerson_WithDiscount(){
         return 0;
     }
-
-    public <Any> Any getTaxStructure(){
-        Integer b=1;
-        return ((Any)((Integer) b));
+    void clear_tax_values(){
+        theTaxRule.clearTaxValuesInTheArray();
     }
+
 } ///End Of class

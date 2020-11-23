@@ -55,6 +55,7 @@ public class  Tax_2018_2019_Inclusive implements ITax {
     }
     public double getTax_NormalPerson_WithDiscount(double noOfMonthes)                      /////
     {
+        clear_tax_values();
         int i=0;
         double accumulateTaxValue=0;
         while(taxBase > theTaxRule.taxSegments.get(i).toAmount){
@@ -87,8 +88,8 @@ public class  Tax_2018_2019_Inclusive implements ITax {
         return  tabs.length;
     }
     public <Any> Any getTaxStructure(){
-        Integer b=1;
-        return ((Any)((Integer) b));
+
+        return (Any)(theTaxRule.getTaxSegments()) ;
     }
     public String[] getTabHeaders(){
         return tabs;
@@ -106,5 +107,8 @@ public class  Tax_2018_2019_Inclusive implements ITax {
     }
     public void setSocialStatus(SocialStatus sc){
 
+    }
+    void clear_tax_values(){
+        theTaxRule.clearTaxValuesInTheArray();
     }
 } ///End Of class

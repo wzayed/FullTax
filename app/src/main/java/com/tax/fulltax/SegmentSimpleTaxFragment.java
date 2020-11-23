@@ -98,14 +98,14 @@ public class SegmentSimpleTaxFragment extends Fragment {
         ToggleButton tgl_isExempted= getActivity().findViewById(R.id.tgl_isExempted);
         if(tgl_isExempted.isChecked()){
             TextView txt_taxValue2= getActivity().findViewById(R.id.lblResTaxValue2);
-            txt_taxValue2.setText(String.format("%.2f",taxValueExempted));
+            txt_taxValue2.setText(String.format("%,.2f",taxValueExempted));
 
         }
         else{
             TextView txt_taxValue= getActivity().findViewById(R.id.lblResTaxValue_FragSmpl);
             TextView txt_taxPercentage= getActivity().findViewById(R.id.lblResTaxRatio_FragSmpl);
             txt_taxPercentage.setText(String.format("%.2f%%",taxPercentage));
-            txt_taxValue.setText(String.format("%.2f",taxValueUnExempted));
+            txt_taxValue.setText(String.format("%,.2f",taxValueUnExempted));
         }
     }
 }

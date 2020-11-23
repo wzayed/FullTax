@@ -44,19 +44,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/btnTaxCalc_discount">
 
-
         <TextView
             android:id="@+id/lblTaxValue2_discount2"
             android:layout_width="135dp"
-
-            android:layout_height="63dp"
+            android:layout_height="wrap_content"
 
             android:gravity="center"
             android:text="قيمة الضريبة قبل الخصم"
             android:textAlignment="center"
             android:textSize="20sp"
-            app:layout_constraintEnd_toStartOf="@+id/lblTaxRatio_discount"
-            app:layout_constraintHorizontal_bias="0.5"
+
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -75,18 +72,15 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/lblTaxValue2_discount2" />
 
-
         <TextView
             android:id="@+id/lblTaxValue2_discount"
             android:layout_width="136dp"
-            android:layout_height="63dp"
-            android:background="@null"
+            android:layout_height="wrap_content"
             android:gravity="center"
             android:text="قيمة الضريبة"
             android:textAlignment="center"
             android:textSize="20sp"
-            app:layout_constraintEnd_toEndOf="@id/tblTaxDetails_discount"
-            app:layout_constraintStart_toEndOf="@+id/lblTaxRatio_discount"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/frm_Exempted_discount" />
 
         <TextView
@@ -104,9 +98,9 @@
 
         <TextView
             android:id="@+id/lblTaxRatio_discount"
-            android:layout_width="136dp"
+            android:layout_width="0dp"
 
-            android:layout_height="63dp"
+            android:layout_height="wrap_content"
 
             android:layout_marginStart="1dp"
             android:layout_marginEnd="4dp"
@@ -154,7 +148,7 @@
                     android:layout_column="0"
                     android:layout_weight="2"
                     android:gravity="center"
-                    android:text="الضريبة"
+                    android:text="ضريبة ق خ"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
@@ -501,8 +495,9 @@
         android:id="@+id/frm_UnExempted_discount"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="100dp"
         android:visibility="invisible"
+
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/btnTaxCalc_discount">

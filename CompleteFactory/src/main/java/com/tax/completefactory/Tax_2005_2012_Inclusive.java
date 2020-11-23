@@ -38,6 +38,7 @@ public class  Tax_2005_2012_Inclusive implements ITax {
 
     public double getTax_NormalPerson_WithExemption(double noOfMonthes)                     //On and After 2005
     {
+        clear_tax_values();
         double taxableAmountInTheSegment=0;
         if(taxBase<=0) return 0 ;
         taxValue=0;
@@ -107,5 +108,7 @@ public class  Tax_2005_2012_Inclusive implements ITax {
     public double getDiscount_NormalPerson_WithDiscount(){
         return 0;
     }
-
+    void clear_tax_values(){
+        theTaxRule.clearTaxValuesInTheArray();
+    }
 } ///End Of class

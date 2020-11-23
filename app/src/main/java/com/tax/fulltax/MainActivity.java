@@ -1,5 +1,9 @@
 package com.tax.fulltax;
-
+//In version 2.2 we add
+//In-App user reviews.
+//Messaging and communication between users
+//Parse and firebase tools
+import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -8,6 +12,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -22,8 +27,17 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import com.google.android.play.core.review.ReviewInfo;
+import com.google.android.play.core.review.ReviewManager;
+import com.google.android.play.core.review.ReviewManagerFactory;
+import com.google.android.play.core.tasks.OnCompleteListener;
+import com.google.android.play.core.tasks.Task;
+import com.tax.completefactory.TaxLayersStructure2020;
+import com.tax.completefactory.TaxStructure_1981_2004_Inclusive;
 import com.tax.completefactory.TaxStructure_2005_2016_Inclusive;
+import com.tax.completefactory.TaxStructure_2017_2019_Inclusive;
 import com.tax.completefactory.TaxStructure_2020_Inclusive;
+import com.tax.completefactory.Tax_2020_Above_Inclusive;
 import com.tax.fulltax.R;
 import com.google.android.material.tabs.TabLayout;
 import com.tax.completefactory.ConcreteTaxYearEntityFactory;
@@ -39,16 +53,18 @@ import java.util.List;
 import static com.tax.completefactory.Constants.MAX_VALUE_INT;
 
 public class MainActivity extends FragmentActivity {
-    private  ITax theTaxEntity = null;
+    private ITax theTaxEntity = null;
     private final ITaxYearEntity taxEntityFactory = new ConcreteTaxYearEntityFactory();
     private final FragmentIndex fragment_Index = new FragmentIndex();
     private YearsFragment yearsFragment;
     TextView lblTaxLaw;
-    @Override
+    ReviewManager reviewManager;
+    ReviewInfo reviewInfo=null;
 
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-      //   requestWindowFeature(Window.FEATURE_NO_TITLE);
+        //   requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main);
         lblTaxLaw = (TextView) findViewById(R.id.lblTaxLaw);
 
@@ -64,10 +80,10 @@ public class MainActivity extends FragmentActivity {
             yearsList.add(Integer.toString(i));
         }
         //commented in update 1.5 according to Alaa requirement
-      //  Collections.reverse(yearsList);  //Make the current and most recent years on the top
+        //  Collections.reverse(yearsList);  //Make the current and most recent years on the top
 
         yearsSpinner.setAdapter(arAdapterYearSpinner);
-        yearsSpinner.setSelection(yearsSpinner.getCount()-1);
+        yearsSpinner.setSelection(yearsSpinner.getCount() - 1);
         yearsSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             @Override
@@ -75,7 +91,7 @@ public class MainActivity extends FragmentActivity {
                 int currentYear = Calendar.getInstance().get(Calendar.YEAR);
                 ///////////////////////////////
                 // According to update 1.5
-               // int taxYear = currentYear - i;
+                // int taxYear = currentYear - i;
                 int taxYear = 1981 + i;
 
                 if (theTaxEntity == null) {
@@ -105,6 +121,36 @@ public class MainActivity extends FragmentActivity {
 
             }
         });
+
+        initReviewInfo();
+    }
+    void initReviewInfo(){
+        reviewManager= ReviewManagerFactory.create(this);
+        Task<ReviewInfo> request= reviewManager.requestReviewFlow();
+        request.addOnCompleteListener(new OnCompleteListener<ReviewInfo>() {
+            @Override
+            public void onComplete(Task<ReviewInfo> task) {
+                if (task.isSuccessful()) {
+                    reviewInfo=task.getResult();
+
+                } else {
+                }
+
+
+            }
+        });
+    }
+    public void openReview(){
+        if(reviewInfo !=null){
+
+            Task<Void> flow=reviewManager.launchReviewFlow(this,reviewInfo);
+            flow.addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(Task<Void> task) {
+
+                }
+            });
+        }
     }
 
     void configTabLayout() {
@@ -112,27 +158,29 @@ public class MainActivity extends FragmentActivity {
         final TabLayout tLayout = findViewById(R.id.tabPersonTypes);
 
         FragmentStatePagerAdapter fpageAdapter = new MyTabViewPager(this.getSupportFragmentManager(),
-                this.yearsFragment,this.theTaxEntity.getTabHeaders());
+                this.yearsFragment, this.theTaxEntity.getTabHeaders());
 
         vPager.setAdapter(fpageAdapter);
         tLayout.setupWithViewPager(vPager);
 
+        vPager.beginFakeDrag(); // To disable swiping of the page viewer
         // vPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tLayout));
     }
-    public void calcLegalEntityTax(View view){
+
+    public void calcLegalEntityTax(View view) {
         //Check if textbox is empty
         try {
             LegalEntityTaxFragment legal_entity_frag = (LegalEntityTaxFragment) this.yearsFragment.fragments.get(1);
             EditText taxBase = findViewById(R.id.txtNetProfit);
             theTaxEntity.setTaxBase(Double.parseDouble(taxBase.getText().toString()));
             legal_entity_frag.update_Tax_Texts(theTaxEntity.getTaxRatioLegalEntity(), theTaxEntity.getTax_LegalPerson());
-        }
-        catch(NumberFormatException ex){
+        } catch (NumberFormatException ex) {
             //Custom Toast
             showCustomToast("من فضلك إدحل صافى الدخل بإسلوب صخيخ");
         }
     }
-    public void calcTax_NoDiscount(View view){
+
+    public void calcTax_NoDiscount(View view) {
         try {
             SegmentSimpleTaxFragment Segment_Simple_frag = (SegmentSimpleTaxFragment) this.yearsFragment.fragments.get(0);
             EditText taxBase = findViewById(R.id.txtNetProfit);
@@ -142,63 +190,80 @@ public class MainActivity extends FragmentActivity {
                     theTaxEntity.getTax_NormalPerson_WithExemption(12), theTaxEntity.getTax_NormalPersonWithout_Exemption(12));
             //END of Showtax without details
 
-
             //BEGIN ofShowing the details of exempted entities tax
             //We need to get the list inside the taxrule
 
             //  get the list of TextViews in the container and access the array
-            ArrayList<TextView> tvArrayinTable=getTVArrayinTable();
+            TableLayout tblLayout = (TableLayout) findViewById(R.id.tblTaxDetails);
+            ArrayList<TextView> tvArrayinTable = getTVArrayinTable(tblLayout);
 
             //If year 2020 and above gerList<Tax2020>
-            Spinner yearSpinner=(Spinner) findViewById(R.id.yearsSpinner);
+            Spinner yearSpinner = (Spinner) findViewById(R.id.yearsSpinner);
 
             ArrayList<TaxStructure_2020_Inclusive> taxstructure2020;
             ArrayList<TaxStructure_2005_2016_Inclusive> taxstructure;
+            TextView tvTaxLayer=(TextView) findViewById(R.id.taxlayer);
 
-            if(Integer.parseInt(yearSpinner.getSelectedItem().toString()) >= 2020) {
+            if (Integer.parseInt(yearSpinner.getSelectedItem().toString()) >= 2020) {
                 //Make 6th and 7th row visible
-                TableRow tr6=(TableRow) findViewById(R.id.sixthRowColor);
-                TableRow tr7=(TableRow) findViewById(R.id.seventhRow);
+                TableRow tr6 = (TableRow) findViewById(R.id.sixthRowColor);
+                TableRow tr7 = (TableRow) findViewById(R.id.seventhRow);
 
                 tr6.setVisibility(View.VISIBLE);
                 tr7.setVisibility(View.VISIBLE);
 
-                 taxstructure2020 = theTaxEntity.getTaxStructure();
-                for(int i=0; i< taxstructure2020.size(); i++) {
-                    TaxStructure_2020_Inclusive mdl2020=taxstructure2020.get(i);
-                    tvArrayinTable.get(i*5).setText(Double.toString(mdl2020.getTaxValueInThisSegment()));
-                    tvArrayinTable.get(i*5+1).setText(Double.toString(mdl2020.getTaxPercentageInThisSegment()));
-                    tvArrayinTable.get(i*5+2).setText((mdl2020.getToAmount()==MAX_VALUE_INT) ? "-" : Integer.toString(mdl2020.getToAmount()) );
-                    tvArrayinTable.get(i*5+3).setText(Integer.toString(mdl2020.getFromAmount()));
-                    // tvArrayinTable.get(i*5+4).setText(); // This one contains the segment
+                TaxLayersStructure2020 TLayer2020=((Tax_2020_Above_Inclusive) theTaxEntity).getTaxLayer();
+                int[] currentLayer=TLayer2020.getLayerInfo();
+                int currentLayerIndex=currentLayer[2];
+
+                taxstructure2020 = theTaxEntity.getTaxStructure();  // contains the data
+
+                for (int i = 0; i < taxstructure2020.size(); i++) {
+                    if(i>=currentLayerIndex) {
+                        TaxStructure_2020_Inclusive mdl2020 = taxstructure2020.get(i);
+                        tvArrayinTable.get(i * 5).setText(String.format("%,.1f",mdl2020.getTaxValueInThisSegment()));
+                        tvArrayinTable.get(i * 5 + 1).setText(Double.toString(mdl2020.getTaxPercentageInThisSegment()));
+                        tvArrayinTable.get(i * 5 + 2).setText((mdl2020.getToAmount() == MAX_VALUE_INT) ? "-" : String.format("%,d",mdl2020.getToAmount()));
+                        tvArrayinTable.get(i * 5 + 3).setText((i==currentLayerIndex) ? "1" : String.format("%,d",mdl2020.getFromAmount()));
+                    }
+                    else{
+                        TaxStructure_2020_Inclusive mdl2020 = taxstructure2020.get(i);
+                        tvArrayinTable.get(i * 5).setText("");
+                        tvArrayinTable.get(i * 5 + 1).setText(Double.toString(mdl2020.getTaxPercentageInThisSegment()));
+                        tvArrayinTable.get(i * 5 + 2).setText("");
+                        tvArrayinTable.get(i * 5 + 3).setText("");
+                    }
+
+                    tvTaxLayer.setText("طبقة الضريبة من " + String.format("%,d",currentLayer[0] ) + "إلى " +  ((currentLayer[1]==MAX_VALUE_INT)? "-" : String.format("%,d",currentLayer[1] )));
                 }
-            }
-             else {
+            } else {
                 //Else get the list of 2005 to 2016 Inclusive
                 taxstructure = theTaxEntity.getTaxStructure();
 
-                for(int i=0; i< taxstructure.size(); i++) {
-                    TaxStructure_2005_2016_Inclusive mdl20052016=taxstructure.get(i);
-                    tvArrayinTable.get(i*5).setText(Double.toString(mdl20052016.getTaxValueInThisSegment()));
-                    tvArrayinTable.get(i*5+1).setText(Double.toString(mdl20052016.getTaxPercentageInThisSegment()));
-                    tvArrayinTable.get(i*5+2).setText((mdl20052016.getToAmount()==MAX_VALUE_INT) ? "-" : Integer.toString(mdl20052016.getToAmount()) );
-                    tvArrayinTable.get(i*5+3).setText(Integer.toString(mdl20052016.getFromAmount()));
+                for (int i = 0; i < taxstructure.size(); i++) {
+                    TaxStructure_2005_2016_Inclusive mdl20052016 = taxstructure.get(i);
+                    tvArrayinTable.get(i * 5).setText(String.format("%,.1f",mdl20052016.getTaxValueInThisSegment()));
+                    tvArrayinTable.get(i * 5 + 1).setText(Double.toString(mdl20052016.getTaxPercentageInThisSegment()));
+                    tvArrayinTable.get(i * 5 + 2).setText((mdl20052016.getToAmount() == MAX_VALUE_INT) ? "-" : String.format("%,d",mdl20052016.getToAmount()));
+                    tvArrayinTable.get(i * 5 + 3).setText(String.format("%,d",mdl20052016.getFromAmount()));
                     // tvArrayinTable.get(i*5+4).setText(); // This one contains the segment
                 }
+                tvTaxLayer.setText("");
             }
-              //Fill The Array of TextViews we got before from the table
+            //Fill The Array of TextViews we got before from the table
 
-        }
-        catch(NumberFormatException ex){
+        } catch (NumberFormatException ex) {
             //Custom Toast
             showCustomToast("من فضلك إدحل صافى الدخل بإسلوب صخيخ");
         }
     }
-    public void calcTax_Uniform_NoDiscount_Commercial(View view){
-        // if year = 1981 or 1982 then show fragment that this rules applies from 1983
-        Spinner yearsSpinner=(Spinner) findViewById(R.id.yearsSpinner);
 
-        if(yearsSpinner.getSelectedItem().toString().equals("1981") || yearsSpinner.getSelectedItem().toString().equals("1982")  ){
+    public void calcTax_Uniform_NoDiscount_Commercial(View view) {
+        // if year = 1981 or 1982 then show fragment that this rules applies from 1983
+      //  closeKB();
+        Spinner yearsSpinner = (Spinner) findViewById(R.id.yearsSpinner);
+
+        if (yearsSpinner.getSelectedItem().toString().equals("1981") || yearsSpinner.getSelectedItem().toString().equals("1982")) {
             showCustomToast("هذا القانون ينطبق على الأرباح النجارية و الصناعية أعتبارا من السنة المالية 1983 بينما ينطبق على المهن الحرة إعتبارا من 1981");
             return;
         }
@@ -208,42 +273,70 @@ public class MainActivity extends FragmentActivity {
             EditText taxBase = findViewById(R.id.txtNetProfit);
             theTaxEntity.setTaxBase(Double.parseDouble(taxBase.getText().toString()));
             uniformTaxSegmentCommercial.update_Tax_Texts(theTaxEntity.getTax_LegalPerson());
-        }
-        catch(NumberFormatException ex){
-        //Custom Toast
+            // Fill the tax details table
+            //Fill The Tax details table
+            TableLayout tblLayoutdetails = (TableLayout) findViewById(R.id.tblTaxDetails_uniform_Commercial);
+            ArrayList<TextView> tvArrayinTable = getTVArrayinTable(tblLayoutdetails);   //use as container tblTaxDetails_discount
+            ArrayList<TaxStructure_1981_2004_Inclusive> taxstructure;
+
+            taxstructure = theTaxEntity.getTaxStructure();
+            for (int i = 4; i < taxstructure.size(); i++) {
+                TaxStructure_1981_2004_Inclusive mdl2020 = taxstructure.get(i);
+                tvArrayinTable.get(i * 6 -24).setText(String.format("%,.1f",mdl2020.getTaxValueInThisSegment()));
+                tvArrayinTable.get(i * 6 -24 + 1).setText(String.format("%,.1f",mdl2020.gettaxDiscountAmount()));
+                tvArrayinTable.get(i * 6 -24 + 2).setText(String.format("%,.1f",mdl2020.getTaxPercentageInThisSegment()));
+                tvArrayinTable.get(i * 6 -24 + 3).setText((mdl2020.getToAmount() == MAX_VALUE_INT) ? "-" : String.format("%,d",mdl2020.getToAmount()));
+                tvArrayinTable.get(i * 6 -24 + 4).setText(String.format("%,d",mdl2020.getFromAmount()));
+            }
+        } catch (NumberFormatException ex) {
+            //Custom Toast
             showCustomToast("من فضلك إدحل صافى الدخل بإسلوب صخيخ");
         }
     }
 
-  public void calcTax_Uniform_NoDiscount(View view){
+    public void calcTax_Uniform_NoDiscount(View view) {
         double taxVaue;
-      try {
-          UniformTaxFragment uniformTaxSegment = (UniformTaxFragment)
-                  this.yearsFragment.fragments.get(0);
-          EditText taxBase = findViewById(R.id.txtNetProfit);
-          theTaxEntity.setTaxBase(Double.parseDouble(taxBase.getText().toString()));
+        try {
+            UniformTaxFragment uniformTaxSegment = (UniformTaxFragment)
+                    this.yearsFragment.fragments.get(0);
+            EditText taxBase = findViewById(R.id.txtNetProfit);
+            theTaxEntity.setTaxBase(Double.parseDouble(taxBase.getText().toString()));
 
-          ToggleButton tglbtn= findViewById(R.id.tgl_isExempted_uniform);
-          if(tglbtn.isChecked()){
-              Spinner scSpinner= findViewById(R.id.socialStatus_WithoutCommercialComp);
-              theTaxEntity.setSocialStatus((com.tax.completefactory.SocialStatus) scSpinner.getSelectedItem());
-              taxVaue=theTaxEntity.getTax_NormalPerson_WithExemption(12);
-          }
-          else{
-              taxVaue=theTaxEntity.getTax_NormalPersonWithout_Exemption(12);
-          }
+            ToggleButton tglbtn = findViewById(R.id.tgl_isExempted_uniform);
+            if (tglbtn.isChecked()) {
+                Spinner scSpinner = findViewById(R.id.socialStatus_WithoutCommercialComp);
+                theTaxEntity.setSocialStatus(SocialStatus.values()[scSpinner.getSelectedItemPosition()]);
+                taxVaue = theTaxEntity.getTax_NormalPerson_WithExemption(12);
+                //Fill The Tax details table
+                TableLayout tblLayoutdetails = (TableLayout) findViewById(R.id.tblTaxDetails_uniform_prof);
+                ArrayList<TextView> tvArrayinTable = getTVArrayinTable(tblLayoutdetails);   //use as container tblTaxDetails_discount
+                ArrayList<TaxStructure_1981_2004_Inclusive> taxstructure;
 
-          uniformTaxSegment.update_Tax_Texts(taxVaue);
-      }
-      catch(NumberFormatException ex){
-          //Custom Toast
-          showCustomToast("من فضلك إدحل صافى الدخل بإسلوب صخيخ");
-      }
-  }
+                taxstructure = theTaxEntity.getTaxStructure();
+                for (int i = 0; i < 4; i++) {
+                    TaxStructure_1981_2004_Inclusive mdl2020 = taxstructure.get(i);
+                    tvArrayinTable.get(i * 6).setText(String.format("%,.1f",mdl2020.getTaxValueInThisSegment()));
+                    tvArrayinTable.get(i * 6 + 1).setText(String.format("%,.1f",mdl2020.gettaxDiscountAmount()));
+                    tvArrayinTable.get(i * 6 + 2).setText(String.format("%,.1f",mdl2020.getTaxPercentageInThisSegment()));
+                    tvArrayinTable.get(i * 6 + 3).setText((mdl2020.getToAmount() == MAX_VALUE_INT) ? "-" : String.format("%,d",mdl2020.getToAmount()));
+                    tvArrayinTable.get(i * 6 + 4).setText(String.format("%,d",mdl2020.getFromAmount()));
+                }
+
+            } else {
+                taxVaue = theTaxEntity.getTax_NormalPersonWithout_Exemption(12);
+            }
+
+            uniformTaxSegment.update_Tax_Texts(taxVaue);
+        } catch (NumberFormatException ex) {
+            //Custom Toast
+            showCustomToast("من فضلك إدحل صافى الدخل بإسلوب صخيخ");
+        }
+    }
+
     /////////////////////////////////
     //Calc tax with discount percentages 2017 to 2019 inclusive
-    public void calcTax_Discount(View view){
-        double taxVaue=0,taxDiscount=0;
+    public void calcTax_Discount(View view) {
+        double taxVaue = 0, taxDiscount = 0;
         int exemptioneState;
         try {
             SegmentsWithDiscountsTaxFragment withDiscountTaxSegment = (SegmentsWithDiscountsTaxFragment)
@@ -251,29 +344,48 @@ public class MainActivity extends FragmentActivity {
             EditText taxBase = findViewById(R.id.txtNetProfit);
             theTaxEntity.setTaxBase(Double.parseDouble(taxBase.getText().toString()));
 
-            ToggleButton tglbtn= findViewById(R.id.tgl_isExempted_discount);
-            if(tglbtn.isChecked()){
+            ToggleButton tglbtn = findViewById(R.id.tgl_isExempted_discount);
+            if (tglbtn.isChecked()) {
                 //Use the with discount methods
                 taxVaue = theTaxEntity.getTax_NormalPerson_WithDiscount(12);
-                exemptioneState=1;
-                taxDiscount=theTaxEntity.getDiscount_NormalPerson_WithDiscount();
-            }
-            else{
-               // taxVaue=theTaxEntity.getTax_NormalPersonWithout_Exemption(12);
-                taxVaue = theTaxEntity.getTax_NormalPersonWithout_Exemption( 12);
-                taxDiscount=theTaxEntity.getTaxRatioNormalPerson_Without_exemption();
-                exemptioneState=0;
+                exemptioneState = 1;
+                taxDiscount = theTaxEntity.getDiscount_NormalPerson_WithDiscount();
+
+                //BEGIN ofShowing the details of exempted entities tax
+                //We need to get the list inside the taxrule
+                //  get the list of TextViews in the container and access the array
+                TableLayout tblLayoutdetails = (TableLayout) findViewById(R.id.tblTaxDetails_discount);
+                ArrayList<TextView> tvArrayinTable = getTVArrayinTable(tblLayoutdetails);   //use as container tblTaxDetails_discount
+                ArrayList<TaxStructure_2017_2019_Inclusive> taxstructure;
+
+                taxstructure = theTaxEntity.getTaxStructure();
+                for (int i = 0; i < taxstructure.size(); i++) {
+                    TaxStructure_2017_2019_Inclusive mdl2020 = taxstructure.get(i);
+                    tvArrayinTable.get(i * 5).setText(String.format("%,.1f",mdl2020.getTaxValueInThisSegment()));
+                    tvArrayinTable.get(i * 5 + 1).setText(String.format("%,.1f",mdl2020.getTaxPercentageInThisSegment()));
+                    tvArrayinTable.get(i * 5 + 2).setText((mdl2020.getToAmount() == MAX_VALUE_INT) ? "-" : String.format("%,d",mdl2020.getToAmount()));
+                    tvArrayinTable.get(i * 5 + 3).setText(String.format("%,d",mdl2020.getFromAmount()));
+                }
             }
 
-            withDiscountTaxSegment.update_Tax_Texts(taxVaue,taxDiscount,exemptioneState );
+            else{
+            // taxVaue=theTaxEntity.getTax_NormalPersonWithout_Exemption(12);
+            taxVaue = theTaxEntity.getTax_NormalPersonWithout_Exemption(12);
+            taxDiscount = theTaxEntity.getTaxRatioNormalPerson_Without_exemption();
+            exemptioneState = 0;
         }
+
+        withDiscountTaxSegment.update_Tax_Texts(taxVaue, taxDiscount, exemptioneState);
+
+    }
         catch(NumberFormatException ex){
-            //Custom Toast
-            showCustomToast("من فضلك إدحل صافى الدخل بإسلوب صخيخ");
-        }
+        showCustomToast("من فضلك إدحل صافى الدخل بإسلوب صخيخ");
     }
 
+}
+
     public void calcTax_Uniform_NoDiscount_Mowahada(View view){
+      //  closeKB();
         double taxValue=0,taxRatio=0;
         try {
             UniformTaxFragment_Mowahada TaxSegment_Mowahada = (UniformTaxFragment_Mowahada)
@@ -293,6 +405,20 @@ public class MainActivity extends FragmentActivity {
                 else{
                     theTaxEntity.setSocialStatus(SocialStatus.values()[scSpinner.getSelectedItemPosition()-1]);
                     taxValue=theTaxEntity.getTax_NormalPerson_WithExemption(12);
+                }
+                //Fill The Tax details table
+                TableLayout tblLayoutdetails = (TableLayout) findViewById(R.id.tblTaxDetails_uniform_mowahada);
+                ArrayList<TextView> tvArrayinTable = getTVArrayinTable(tblLayoutdetails);   //use as container tblTaxDetails_discount
+                ArrayList<TaxStructure_1981_2004_Inclusive> taxstructure;
+
+                taxstructure = theTaxEntity.getTaxStructure();
+                for (int i = 0; i < taxstructure.size(); i++) {
+                    TaxStructure_1981_2004_Inclusive mdl2020 = taxstructure.get(i);
+                    tvArrayinTable.get(i * 6).setText(String.format("%,.1f",mdl2020.getTaxValueInThisSegment()));
+                    tvArrayinTable.get(i * 6 + 1).setText(String.format("%,.1f",mdl2020.gettaxDiscountAmount()));
+                    tvArrayinTable.get(i * 6 + 2).setText(String.format("%,.1f",mdl2020.getTaxPercentageInThisSegment()));
+                    tvArrayinTable.get(i * 6 + 3).setText((mdl2020.getToAmount() == MAX_VALUE_INT) ? "-" : String.format("%,d",mdl2020.getToAmount()));
+                    tvArrayinTable.get(i * 6 + 4).setText(String.format("%,d",mdl2020.getFromAmount()));
                 }
 
             }
@@ -339,10 +465,10 @@ public class MainActivity extends FragmentActivity {
 
     }
 
-    ArrayList<TextView> getTVArrayinTable(){
+    ArrayList<TextView> getTVArrayinTable(TableLayout tblLayout){
         ArrayList<TextView> tvArray=new ArrayList<TextView>();
 
-        TableLayout tblLayout= (TableLayout) findViewById(R.id.tblTaxDetails);
+     //   TableLayout tblLayout= (TableLayout) findViewById(R.id.tblTaxDetails);
         boolean headerRow=true;
         for(int i=0;i< tblLayout.getChildCount();i++){
             if(tblLayout.getChildAt(i) instanceof TableRow) {
@@ -358,5 +484,13 @@ public class MainActivity extends FragmentActivity {
             }
         }
         return tvArray;
+    }
+    public void closeKB(){
+        // Check if no view has focus:
+        View view = this.getCurrentFocus();
+        if (view != null) {
+            InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
     }
 } //End of the class

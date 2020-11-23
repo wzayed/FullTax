@@ -31,5 +31,11 @@ public class  TaxRule_2020_And_Above{
     public ArrayList<TaxStructure_2020_Inclusive> getTaxSegments(){
         return taxSegments;
     }
+
+    public void clearTaxValuesInTheArray(){
+        for(int i=0 ; i< taxSegments.size()  ;i++){
+            taxSegments.get(i).taxValueInThisSegment=0;
+        }
+    }
     //tax_layers start_at_segment
 }

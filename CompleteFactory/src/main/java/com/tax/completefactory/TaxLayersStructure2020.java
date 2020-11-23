@@ -6,4 +6,8 @@ public class  TaxLayersStructure2020{ // Used when Tax layers is used along with
         this.toAmount=toAmount;
         this.start_At_Segment=start_At_Segment;
     }
+    public int[] getLayerInfo(){
+        int[] a= new int[] {fromAmount,toAmount,start_At_Segment};
+        return a;
+    }
 }

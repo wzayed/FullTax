@@ -19,21 +19,24 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/lblTaxRatio"
         android:layout_width="143dp"
         android:layout_height="56dp"
-        android:layout_marginTop="73dp"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
         android:text="نسبة الضريبة"
         android:textAlignment="center"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/btnTaxCalc" />
+        app:layout_constraintTop_toBottomOf="@+id/btnTaxCalc" />
 
     <TextView
         android:id="@+id/lblTaxValue"
         android:layout_width="143dp"
         android:layout_height="56dp"
+        android:gravity="center"
         android:text="قيمة الضريبة"
         android:textAlignment="center"
         android:textSize="24sp"
@@ -44,19 +47,24 @@
         android:id="@+id/lblResTaxRatio_FragLegal"
         android:layout_width="143dp"
         android:layout_height="56dp"
-        android:layout_marginTop="72dp"
+        android:background="@drawable/textviewborder"
+        android:gravity="center"
+        android:text="0.00"
         android:textAlignment="center"
         android:textSize="24sp"
         app:layout_constraintEnd_toStartOf="@+id/lblTaxRatio"
-        app:layout_constraintTop_toTopOf="@+id/btnTaxCalc" />
+        app:layout_constraintTop_toTopOf="@+id/lblTaxRatio" />
 
     <TextView
         android:id="@+id/lblResTaxValue_FragLegal"
         android:layout_width="143dp"
         android:layout_height="56dp"
+        android:background="@drawable/textviewborder"
+        android:gravity="center"
+        android:text="0.00"
         android:textAlignment="center"
         android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="@+id/lblTaxValue"
-        app:layout_constraintEnd_toStartOf="@+id/lblTaxValue" />
+        app:layout_constraintEnd_toStartOf="@+id/lblTaxValue"
+        app:layout_constraintTop_toTopOf="@+id/lblTaxValue" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

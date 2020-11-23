@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class  TaxRule_1994_1997_Inclusive{
-    List<TaxStructure_1981_2004_Inclusive> taxSegments=new ArrayList<TaxStructure_1981_2004_Inclusive>();
+    ArrayList<TaxStructure_1981_2004_Inclusive> taxSegments=new ArrayList<TaxStructure_1981_2004_Inclusive>();
 
     TaxRule_1994_1997_Inclusive(){
 
@@ -15,5 +15,13 @@ public class  TaxRule_1994_1997_Inclusive{
         this.taxSegments.add(new TaxStructure_1981_2004_Inclusive(16001,27000,40,1535));
         this.taxSegments.add(new TaxStructure_1981_2004_Inclusive(27001,68000,45,2885));
         this.taxSegments.add(new TaxStructure_1981_2004_Inclusive(68001,Constants.MAX_VALUE_INT,48,4925));
+    }
+    public ArrayList<TaxStructure_1981_2004_Inclusive> getTaxSegments(){
+        return taxSegments;
+    }
+    public void clearTaxValuesInTheArray(){
+        for(int i=0 ; i< taxSegments.size()  ;i++){
+            taxSegments.get(i).taxValueBeforeDiscount=taxSegments.get(i).taxValue=0;
+        }
     }
 }

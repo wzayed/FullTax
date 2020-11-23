@@ -5,9 +5,8 @@ import java.util.List;
 
 public class  TaxRule_1981_1993_Inclusive{
 
-    List<TaxStructure_1981_2004_Inclusive> taxSegmentsCommercialsAndIndustrial=new ArrayList<TaxStructure_1981_2004_Inclusive>();
-    List<TaxStructure_1981_2004_Inclusive> taxSegmentsProfession=new ArrayList<TaxStructure_1981_2004_Inclusive>();
-
+    ArrayList<TaxStructure_1981_2004_Inclusive> taxSegmentsCommercialsAndIndustrial=new ArrayList<TaxStructure_1981_2004_Inclusive>();
+    ArrayList<TaxStructure_1981_2004_Inclusive> taxSegmentsProfession=new ArrayList<TaxStructure_1981_2004_Inclusive>();
 
     TaxRule_1981_1993_Inclusive(){
 
@@ -28,8 +27,25 @@ public class  TaxRule_1981_1993_Inclusive{
         this.taxSegmentsProfession.add(new TaxStructure_1981_2004_Inclusive(1001,2500,20,20));
         this.taxSegmentsProfession.add(new TaxStructure_1981_2004_Inclusive(2501,4500,25,145));
         this.taxSegmentsProfession.add(new TaxStructure_1981_2004_Inclusive(4501,Constants.MAX_VALUE_INT,30,370));
-
     }
+
+    public ArrayList<TaxStructure_1981_2004_Inclusive> getTaxSegments(){
+        ArrayList<TaxStructure_1981_2004_Inclusive> tmpAL=new ArrayList<TaxStructure_1981_2004_Inclusive>();
+        tmpAL.addAll(taxSegmentsProfession);
+        tmpAL.addAll(taxSegmentsCommercialsAndIndustrial);
+
+        return tmpAL;
+    }
+
+    public void clearTaxValuesInTheArray(){
+        for(int i=0 ; i< taxSegmentsCommercialsAndIndustrial.size()  ;i++){
+            taxSegmentsCommercialsAndIndustrial.get(i).taxValueBeforeDiscount=taxSegmentsCommercialsAndIndustrial.get(i).taxValue=0;
+        }
+        for(int i=0 ; i< taxSegmentsProfession.size()  ;i++){
+            taxSegmentsProfession.get(i).taxValueBeforeDiscount=taxSegmentsProfession.get(i).taxValue=0;
+        }
+    }
+
 }
 //////////////////////////////////////////////////////////////////////////////////////////
 ///// TaxRule for 1994 To 1997  Unified Tax

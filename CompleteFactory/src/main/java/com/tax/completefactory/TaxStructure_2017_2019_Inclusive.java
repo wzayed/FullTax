@@ -9,4 +9,19 @@ public class  TaxStructure_2017_2019_Inclusive{
         this.taxPercentageInThisSegment=taxPercentageInThisSegment;
         this.taxDiscountPercentageInThisSegment=taxDiscountPercentageInThisSegment;
     }
+    public int getFromAmount(){
+        return this.fromAmount;
+    }
+    public int getToAmount(){
+        return this.toAmount;
+    }
+    public double getTaxPercentageInThisSegment(){
+        return  this.taxPercentageInThisSegment;
+    }
+    public double getTaxValueInThisSegment(){
+        return this.taxValueWithoutDiscountInThisSegment;
+    }
+    public double getTaxDiscountPercentageInThisSegment(){
+        return this.taxDiscountPercentageInThisSegment;
+    }
 }

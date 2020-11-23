@@ -1,7 +1,7 @@
 package com.tax.completefactory;
 
 public class  Tax_2020_Above_Inclusive implements ITax{
-    public com.tax.completefactory.TaxRule_2020_And_Above theTaxRule=new TaxRule_2020_And_Above();
+    public TaxRule_2020_And_Above theTaxRule=new TaxRule_2020_And_Above();
     private double taxValue=0.00;
     double taxBase=0;
     public final String[] tabs={"شخص طبيعى","شخص إعتبارى"};
@@ -31,10 +31,10 @@ public class  Tax_2020_Above_Inclusive implements ITax{
         return this.taxValue;
     }
 
-
     public double getTax_NormalPerson_WithExemption(double noOfMonthes)                     //On and After 2005
     {
         //From Taxbase get the layer
+        clear_tax_values();
         int i=0;
         while(taxBase > theTaxRule.taxLayers.get(i).toAmount ){
             i++;
@@ -88,7 +88,14 @@ public class  Tax_2020_Above_Inclusive implements ITax{
     {
         return theTaxRule.taxSegments.get(theTaxRule.taxSegments.size() - 1).taxPercentageInThisSegment;
     }
-
+    public TaxLayersStructure2020 getTaxLayer(){
+        int i=0;
+        while(taxBase > theTaxRule.taxLayers.get(i).toAmount ){
+            i++;
+        }
+        TaxLayersStructure2020 TLayer2020=theTaxRule.taxLayers.get(i);
+        return TLayer2020;
+    }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
     ////// Doesn't apply to ths year range
@@ -110,5 +117,8 @@ public class  Tax_2020_Above_Inclusive implements ITax{
     }
     public double getDiscount_NormalPerson_WithDiscount(){
         return 0;
+    }
+    void clear_tax_values(){
+      theTaxRule.clearTaxValuesInTheArray();
     }
 } ///End Of class

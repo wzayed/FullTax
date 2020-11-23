@@ -99,16 +99,16 @@ public class SegmentsWithDiscountsTaxFragment extends Fragment {
             TextView tvTaxDiscount= getActivity().findViewById(R.id.lblResTaxRatio_FragSmpl_discount);
             TextView tvTaxWithoutDiscount= getActivity().findViewById(R.id.lblResTaxValue2_discount2);
 
-            tvTaxwithDiscount.setText(String.format("%.2f",taxValue ));
+            tvTaxwithDiscount.setText(String.format("%,.2f",taxValue ));
             tvTaxDiscount.setText(String.format("%.2f",taxDiscount ));
-            tvTaxWithoutDiscount.setText(String.format("%.2f",(taxValue*100/(100-taxDiscount) )));
+            tvTaxWithoutDiscount.setText(String.format("%,.2f",(taxValue*100/(100-taxDiscount) )));
 
         }
         else{
             TextView tvText= getActivity().findViewById(R.id.lblResTaxValue_FragSmpl_discount);
             tvTaxPercentageUnexempted= getActivity().findViewById(R.id.lblResTaxPercentage_FragSmpl_discount);
 
-            tvText.setText(String.format("%.2f",taxValue ));
+            tvText.setText(String.format("%,.2f",taxValue ));
             tvTaxPercentageUnexempted.setText(String.format("%.2f",taxDiscount ));
         }
     }
