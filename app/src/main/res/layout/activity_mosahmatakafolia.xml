@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabdrawerMenu2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:focusable="true"
+        android:onClick="fabShowMenu"
+        app:backgroundTint="#009688"
+        app:layout_constraintBottom_toTopOf="@+id/lblTaxLaw"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_baseline_menu_open_24" />
+
+    <TextView
+        android:id="@+id/lblResultLabel"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="قيمة المساهمة التكافلية"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/lblTotalIncon"
+        app:layout_constraintStart_toStartOf="@+id/lblTotalIncon"
+        app:layout_constraintTop_toBottomOf="@id/btnCalcMosahmaTacafolia" />
+
+    <TextView
+        android:id="@+id/tvActTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="حساب قيمة المساهمة التكافلية"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/fabdrawerMenu2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/horizontalLine1"
+        android:layout_width="0dp"
+        android:layout_height="5dp"
+        android:background="@color/colorRed"
+        app:layout_constraintEnd_toEndOf="@id/tvActTitle"
+        app:layout_constraintStart_toStartOf="@id/tvActTitle"
+        app:layout_constraintTop_toBottomOf="@id/tvActTitle" />
+
+    <TextView
+        android:id="@+id/theLaw"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:text='"المادة (40) من قانون نظام التأمين الصحى الشامل الصادر بالقانون رقم 2 لسنة 2018. يتم حساب المساهمة التكافلية بواقع  2.5 فى الألف من جملة الإيرادات السنوية للمنشأت الفردية و الشركات أيا كانت طبيعتها او النظام القانونى الخاضعه له و للهيئات العامة الإقتصادية دون إستبعاد أى مبالغ من هذه الإيرادات عند إحتساب وعاء إحتسابها"'
+        android:textColor="#009688"
+        android:textSize="16sp"
+        android:textStyle="italic"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/horizontalLine1" />
+    <View
+        android:id="@+id/horizontalLine2"
+        android:layout_width="0dp"
+        android:layout_height="3dp"
+        android:background="@color/colorRed"
+        android:layout_marginTop="5dp"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/theLaw" />
+
+    <TextView
+        android:id="@+id/lblTotalIncon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:text="إجمالى الإيرادات السنوية للمنشأة"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/theLaw" />
+
+    <EditText
+        android:id="@+id/editTotalIncom"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/colorAccent"
+        android:ems="10"
+        android:gravity="center"
+        android:hint="إدخل هنا القيمة"
+        android:inputType="numberDecimal"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/lblTotalIncon"
+        app:layout_constraintEnd_toStartOf="@+id/lblTotalIncon"
+        app:layout_constraintStart_toStartOf="@+id/btnCalcMosahmaTacafolia"
+        app:layout_constraintTop_toTopOf="@+id/lblTotalIncon" />
+
+    <TextView
+        android:id="@+id/lblResultValue"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/textviewborder"
+        android:gravity="end"
+        android:text="0.00"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/lblResultLabel"
+        app:layout_constraintEnd_toStartOf="@+id/lblTotalIncon"
+        app:layout_constraintStart_toStartOf="@+id/btnCalcMosahmaTacafolia"
+        app:layout_constraintTop_toTopOf="@+id/lblResultLabel" />
+    <View
+        android:id="@+id/horizontalLine3"
+        android:layout_width="0dp"
+        android:layout_height="3dp"
+        android:background="@color/colorRed"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/lblResultLabel" />
+
+    <Button
+        android:id="@+id/btnCalcMosahmaTacafolia"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
+        android:onClick="calcMosahmaTakafoliabtn"
+        android:text="حساب قيمة المساهمة التكافلية"
+        android:textSize="22sp"
+        app:layout_constraintBottom_toTopOf="@id/lblResultLabel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/editTotalIncom" />
+
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/adView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        app:adSize="MEDIUM_RECTANGLE"
+
+        app:adUnitId="@string/add_mob_unit_id"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/horizontalLine3" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

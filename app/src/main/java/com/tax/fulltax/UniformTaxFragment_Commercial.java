@@ -10,6 +10,8 @@ import android.widget.ToggleButton;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.tax.fulltax.R;
 
 /**
@@ -28,6 +30,7 @@ public class UniformTaxFragment_Commercial extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    AdView mAdView;
 
     public UniformTaxFragment_Commercial() {
         // Required empty public constructor
@@ -72,6 +75,9 @@ public class UniformTaxFragment_Commercial extends Fragment {
         super.onActivityCreated(savedInstanceState);
          lblResTaxValue_unexempted_uniform_comm = getActivity().findViewById(R.id.lblResTaxValue_unexempted_uniform_comm);
 
+        mAdView = getActivity().findViewById(R.id.adView_uniform_com);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
     }
     public void update_Tax_Texts( double ResTaxValue_unexempted_uniform_comm){
         lblResTaxValue_unexempted_uniform_comm.setText(String.format("%.2f",ResTaxValue_unexempted_uniform_comm) );

@@ -13,6 +13,8 @@ import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.tax.completefactory.SocialStatus;
 import com.tax.fulltax.R;
 
@@ -26,8 +28,9 @@ import java.util.ArrayList;
 public class UniformTaxFragment extends Fragment {
     ToggleButton tgl_isExempted;
     TextView Exempted_TVtaxVaue;
-    TextView UnExempted_TVtaxVaue;
-
+    TextView UnExempted_TVtaxVaue,UnExempted_TVtaxRatio;
+    AdView mAdView6;
+    AdView mAdView7;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -81,7 +84,7 @@ public class UniformTaxFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         UnExempted_TVtaxVaue = getActivity().findViewById(R.id.lblResTaxValue_Unexempted_uniform);
         Exempted_TVtaxVaue = getActivity().findViewById(R.id.lblResTaxValue_exempted_uniform);
-
+        UnExempted_TVtaxRatio = getActivity().findViewById(R.id.lblResTaxRatio_Unexempted_uniform);
         socialStatus= getActivity().findViewById(R.id.socialStatus_WithoutCommercialComp);
 
         ArrayList<String> socialStatusAL=new ArrayList<String>();
@@ -120,14 +123,27 @@ public class UniformTaxFragment extends Fragment {
                 }
             }
         });
+        mAdView6 = getActivity().findViewById(R.id.adView6);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView6.loadAd(adRequest);
+
+        mAdView7 = getActivity().findViewById(R.id.adView_uniform);
+        AdRequest adRequest2 = new AdRequest.Builder().build();
+        mAdView7.loadAd(adRequest2);
     }
-    public void update_Tax_Texts(double taxVale){
+    public void update_Tax_Texts(double taxVale,double taxRatio){
         if(tgl_isExempted.isChecked()) {
             Exempted_TVtaxVaue.setText(String.format("%.2f", taxVale));
         }
         else{
             UnExempted_TVtaxVaue.setText(String.format("%.2f", taxVale));
+            UnExempted_TVtaxRatio.setText(String.format("%.2f", taxRatio));
         }
 
+    }
+    @Override
+    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
+        super.onViewStateRestored(savedInstanceState);
+        tgl_isExempted.setChecked(true);
     }
 }

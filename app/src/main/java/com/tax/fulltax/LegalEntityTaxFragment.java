@@ -10,6 +10,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.tax.fulltax.R;
 
 /**
@@ -20,7 +22,7 @@ import com.tax.fulltax.R;
 public class LegalEntityTaxFragment extends Fragment {
     TextView txt_taxPercentage;
     TextView txt_taxValue;
-
+    private AdView mAdView2;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -66,7 +68,9 @@ public class LegalEntityTaxFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
-        return inflater.inflate(R.layout.fragment_legal_entity_tax, container, false);
+        View view= inflater.inflate(R.layout.fragment_legal_entity_tax, container, false);
+
+        return view;
         //get references to the controls.
         //Calculate the tax
         //
@@ -83,6 +87,10 @@ public class LegalEntityTaxFragment extends Fragment {
         super.onActivityCreated(SavedInstanceState);
         txt_taxPercentage=getActivity().findViewById(R.id.lblResTaxRatio_FragLegal);
         txt_taxValue=getActivity().findViewById(R.id.lblResTaxValue_FragLegal);
+
+        mAdView2 = getActivity().findViewById(R.id.adView2);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView2.loadAd(adRequest);
     }
     public void update_Tax_Texts(double taxPercentage, double taxValue)
     {

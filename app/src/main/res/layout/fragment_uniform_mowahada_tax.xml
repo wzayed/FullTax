@@ -15,8 +15,9 @@
     <ToggleButton
         android:id="@+id/tgl_isExempted_uniform_Mowahada"
         android:layout_width="wrap_content"
-        android:layout_height="53dp"
+        android:layout_height="45dp"
         android:checked="true"
+        android:clickable="true"
         android:drawableStart="@drawable/tglexemption"
         android:textOff="    بدون إعفاءات"
         android:textOn="   مع الإعفاءات"
@@ -24,10 +25,11 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
     <Spinner
         android:id="@+id/socialStatus_WithoutCommercialComp_Mowahada"
         android:layout_width="0dp"
-        android:layout_height="53dp"
+        android:layout_height="45dp"
         app:layout_constraintEnd_toStartOf="@+id/tgl_isExempted_uniform_Mowahada"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/tgl_isExempted_uniform_Mowahada">
@@ -36,34 +38,34 @@
 
     <Button
         android:id="@+id/btnTaxCalc_uniform_Mowahada"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="155dp"
+        android:layout_height="45dp"
+        android:gravity="center"
         android:onClick="calcTax_Uniform_NoDiscount_Mowahada"
         android:text="إحسب الضريبة"
-        android:textSize="24sp"
+        android:textSize="22sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tgl_isExempted_uniform_Mowahada" />
 
 
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/frm_UnExempted_uniform_Mowahada"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/btnTaxCalc_uniform_Mowahada">
-
 
 
         <TextView
             android:id="@+id/lblTaxRatio_Unexempted_uniform_Mowahada"
             android:layout_width="145dp"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:text="نسبة الضريبة"
             android:textAlignment="center"
-            android:gravity="center"
             android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -72,10 +74,10 @@
             android:id="@+id/lblResTaxRatio_Unexempted_uniform_Mowahada"
             android:layout_width="145dp"
             android:layout_height="wrap_content"
-            android:text="00.00"
             android:background="@drawable/textviewborder"
-            android:textAlignment="center"
             android:gravity="center"
+            android:text="00.00"
+            android:textAlignment="center"
             android:textSize="24sp"
             app:layout_constraintEnd_toStartOf="@+id/lblTaxRatio_Unexempted_uniform_Mowahada"
             app:layout_constraintTop_toTopOf="parent" />
@@ -95,15 +97,33 @@
             android:id="@+id/lblResTaxValue_Unexempted_uniform_Mowahada"
             android:layout_width="145dp"
             android:layout_height="wrap_content"
+            android:background="@drawable/textviewborder"
             android:gravity="center"
             android:text="00.00"
-            android:background="@drawable/textviewborder"
             android:textAlignment="center"
             android:textSize="24sp"
             app:layout_constraintEnd_toStartOf="@+id/lblTaxValue_Unexempted_uniform_Mowahada"
             app:layout_constraintTop_toBottomOf="@+id/lblResTaxRatio_Unexempted_uniform_Mowahada" />
-
-
+        <View
+            android:id="@+id/linedivider4"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/lblResTaxValue_Unexempted_uniform_Mowahada"
+            android:layout_width="0dp"
+            android:layout_height="2dp"
+            android:background="@color/browser_actions_divider_color"
+            android:layout_marginBottom="2dp"/>
+        <com.google.android.gms.ads.AdView
+            android:id="@+id/adView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            app:adSize="MEDIUM_RECTANGLE"
+            app:adUnitId="@string/add_mob_unit_id"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/linedivider4" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -669,6 +689,27 @@
             app:layout_constraintTop_toBottomOf="@id/tblTaxDetails_uniform_mowahada"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>
+
+        <View
+            android:id="@+id/linedivider3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/discount_alert"
+            android:layout_width="0dp"
+            android:layout_height="2dp"
+            android:background="@color/browser_actions_divider_color"
+            android:layout_marginBottom="2dp"/>
+        <com.google.android.gms.ads.AdView
+            android:id="@+id/adView_mowahada"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            app:adSize="BANNER"
+            app:adUnitId="@string/add_mob_unit_id"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linedivider3" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 

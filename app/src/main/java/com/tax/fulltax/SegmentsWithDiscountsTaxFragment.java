@@ -11,6 +11,8 @@ import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.tax.fulltax.R;
 
 /**
@@ -29,7 +31,8 @@ public class SegmentsWithDiscountsTaxFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-
+    private AdView mAdView3;
+    private AdView mAdView;
     public SegmentsWithDiscountsTaxFragment() {
         // Required empty public constructor
     }
@@ -65,14 +68,17 @@ public class SegmentsWithDiscountsTaxFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_with_discount_tax, container, false);
+        View v= inflater.inflate(R.layout.fragment_with_discount_tax, container, false);
+
+        return v;
                 //inflater.inflate(R.layout.fragment_Commercial_tax, container, false);
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        tgl_isExempted= getActivity().findViewById(R.id.tgl_isExempted_discount);
+        tgl_isExempted= (ToggleButton) (getActivity().findViewById(R.id.tgl_isExempted_discount));
+
         tgl_isExempted.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -89,6 +95,14 @@ public class SegmentsWithDiscountsTaxFragment extends Fragment {
                 }
             }
         });
+
+
+
+        mAdView3 = getActivity().findViewById(R.id.adView3);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView3.loadAd(adRequest);
+        switchAdsOn();
+
     }
 
     public void update_Tax_Texts(double taxValue, double taxDiscount, int exemptioneState){
@@ -111,5 +125,16 @@ public class SegmentsWithDiscountsTaxFragment extends Fragment {
             tvText.setText(String.format("%,.2f",taxValue ));
             tvTaxPercentageUnexempted.setText(String.format("%.2f",taxDiscount ));
         }
+    }
+    void switchAdsOn(){
+        mAdView = getActivity().findViewById(R.id.adView_disc);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
+    }
+
+    @Override
+    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
+        super.onViewStateRestored(savedInstanceState);
+        tgl_isExempted.setChecked(true);
     }
 }

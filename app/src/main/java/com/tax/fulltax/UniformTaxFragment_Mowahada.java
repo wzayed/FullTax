@@ -13,6 +13,8 @@ import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.tax.fulltax.R;
 
 import java.util.ArrayList;
@@ -37,7 +39,8 @@ public class UniformTaxFragment_Mowahada extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-
+    private AdView mAdView4;
+    private AdView mAdView;
     public UniformTaxFragment_Mowahada() {
         // Required empty public constructor
     }
@@ -115,6 +118,14 @@ public class UniformTaxFragment_Mowahada extends Fragment {
                 }
             }
         });
+
+        mAdView4 = getActivity().findViewById(R.id.adView4);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView4.loadAd(adRequest);
+
+        mAdView = getActivity().findViewById(R.id.adView_mowahada);
+        AdRequest adRequest2 = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest2);
     }
     public void update_Tax_Texts(double taxVale,double taxRatio){
         if(tgl_isExempted.isChecked()) {
@@ -124,5 +135,10 @@ public class UniformTaxFragment_Mowahada extends Fragment {
             UnExempted_TVtaxVaue.setText(String.format("%.2f", taxVale));
             TaxRatioUnExempted.setText(String.format("%.2f", taxRatio));
         }
+    }
+    @Override
+    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
+        super.onViewStateRestored(savedInstanceState);
+        tgl_isExempted.setChecked(true);
     }
 }
