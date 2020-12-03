@@ -24,5 +24,11 @@
         android:title=" المساهمة التكافلية"
         android:visible="true"></item>
 
-
+    <item
+        android:id="@+id/shareProg"
+        android:enabled="true"
+        android:icon="@drawable/ic_baseline_share_24"
+        android:onClick="openShare"
+        android:title=" مشاركة مع الأصدقاء"
+        android:visible="true"></item>
 </menu>

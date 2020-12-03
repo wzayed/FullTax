@@ -1,0 +1,41 @@
+{
+  "project_info": {
+    "project_number": "1012746360066",
+    "firebase_url": "https://egypt-tax.firebaseio.com",
+    "project_id": "egypt-tax",
+    "storage_bucket": "egypt-tax.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1012746360066:android:2aa2cd91cf65d0bd82de1b",
+        "android_client_info": {
+          "package_name": "com.tax.fulltax"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1012746360066-8hknimmem2e24pook38li4cltv2e59rq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCACMeVAY7NkP6NtubGFEYBAKXOYwXUUKc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1012746360066-8hknimmem2e24pook38li4cltv2e59rq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      },
+      "admob_app_id": "ca-app-pub-4347402734904340~4892265266"
+    }
+  ],
+  "configuration_version": "1"
+}

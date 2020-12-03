@@ -123,7 +123,7 @@ public class SegmentsWithDiscountsTaxFragment extends Fragment {
             tvTaxPercentageUnexempted= getActivity().findViewById(R.id.lblResTaxPercentage_FragSmpl_discount);
 
             tvText.setText(String.format("%,.2f",taxValue ));
-            tvTaxPercentageUnexempted.setText(String.format("%.2f",taxDiscount ));
+            tvTaxPercentageUnexempted.setText(String.format("%,.2f",taxDiscount ));
         }
     }
     void switchAdsOn(){

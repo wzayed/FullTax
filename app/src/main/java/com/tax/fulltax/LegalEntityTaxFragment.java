@@ -94,7 +94,7 @@ public class LegalEntityTaxFragment extends Fragment {
     }
     public void update_Tax_Texts(double taxPercentage, double taxValue)
     {
-        txt_taxPercentage.setText(String.format("%.2f%%",taxPercentage));
-        txt_taxValue.setText(String.format("%.2f",taxValue));
+        txt_taxPercentage.setText(String.format("%,.2f%%",taxPercentage));
+        txt_taxValue.setText(String.format("%,.2f",taxValue));
     }
 }

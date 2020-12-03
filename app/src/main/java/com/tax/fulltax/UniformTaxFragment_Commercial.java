@@ -80,6 +80,6 @@ public class UniformTaxFragment_Commercial extends Fragment {
         mAdView.loadAd(adRequest);
     }
     public void update_Tax_Texts( double ResTaxValue_unexempted_uniform_comm){
-        lblResTaxValue_unexempted_uniform_comm.setText(String.format("%.2f",ResTaxValue_unexempted_uniform_comm) );
+        lblResTaxValue_unexempted_uniform_comm.setText(String.format("%,.2f",ResTaxValue_unexempted_uniform_comm) );
     }
 }

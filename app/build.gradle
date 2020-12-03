@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 
+apply plugin: 'com.google.gms.google-services'
 android {
     compileSdkVersion 29
     compileOptions.encoding = 'UTF8'
@@ -7,15 +8,15 @@ android {
         applicationId "com.tax.fulltax"
         minSdkVersion 21
         targetSdkVersion 29
-        versionCode 223
-        versionName "2.23"
+        versionCode 226
+        versionName "2.26"
         android.defaultConfig.ndk.debugSymbolLevel = 'FULL'
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -44,4 +45,7 @@ dependencies {
     // So, make sure you also include that repository in your project's build.gradle file.
     implementation 'com.google.android.play:core:1.8.3'
     implementation 'com.google.android.gms:play-services-ads:19.5.0'
+
+    implementation platform('com.google.firebase:firebase-bom:26.1.0')
+    implementation 'com.google.firebase:firebase-analytics'
 }

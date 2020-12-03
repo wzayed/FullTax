@@ -34,6 +34,7 @@ import android.widget.ToggleButton;
 
 import androidx.appcompat.view.menu.MenuPopupHelper;
 import androidx.appcompat.widget.PopupMenu;
+import androidx.core.app.ShareCompat;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
@@ -114,7 +115,7 @@ public class MainActivity extends FragmentActivity {
         //   requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main);
         lblTaxLaw = (TextView) findViewById(R.id.lblTaxLaw);
-        fabMenu=(FloatingActionButton)findViewById(R.id.fabdrawerMenu);
+        fabMenu = (FloatingActionButton) findViewById(R.id.fabdrawerMenu);
         Spinner yearsSpinner = findViewById(R.id.yearsSpinner);
 
         List<String> yearsList = new ArrayList<String>();
@@ -162,7 +163,7 @@ public class MainActivity extends FragmentActivity {
                 }
                 lblTaxLaw.setText("طبقا ل : " + theTaxEntity.get_WhichRuleAmI());
                 configTabLayout();
-                if(reviewRating.getAskForReview()==true)
+                if (reviewRating.getAskForReview() == true)
                     openReview();
             }
 
@@ -249,75 +250,84 @@ public class MainActivity extends FragmentActivity {
             SegmentSimpleTaxFragment Segment_Simple_frag = (SegmentSimpleTaxFragment) this.yearsFragment.fragments.get(0);
             EditText taxBase = findViewById(R.id.txtNetProfit);
             theTaxEntity.setTaxBase(Double.parseDouble(taxBase.getText().toString()));
-            //Add Marital Status if the year is <=2005
-            Segment_Simple_frag.update_Tax_Texts(theTaxEntity.getTaxRatioNormalPerson_Without_exemption(),
-                    theTaxEntity.getTax_NormalPerson_WithExemption(12), theTaxEntity.getTax_NormalPersonWithout_Exemption(12));
-            //END of Showtax without details
 
-            //BEGIN ofShowing the details of exempted entities tax
-            //We need to get the list inside the taxrule
+            ToggleButton tglbtn = findViewById(R.id.tgl_isExempted);
+            if (tglbtn.isChecked()) {
 
-            //  get the list of TextViews in the container and access the array
-            TableLayout tblLayout = (TableLayout) findViewById(R.id.tblTaxDetails);
-            ArrayList<TextView> tvArrayinTable = getTVArrayinTable(tblLayout);
+                //BEGIN ofShowing the details of exempted entities tax
+                //We need to get the list inside the taxrule
 
-            //If year 2020 and above gerList<Tax2020>
-            Spinner yearSpinner = (Spinner) findViewById(R.id.yearsSpinner);
+                //  get the list of TextViews in the container and access the array
+                TableLayout tblLayout = (TableLayout) findViewById(R.id.tblTaxDetails);
+                ArrayList<TextView> tvArrayinTable = getTVArrayinTable(tblLayout);
 
-            ArrayList<TaxStructure_2020_Inclusive> taxstructure2020;
-            ArrayList<TaxStructure_2005_2016_Inclusive> taxstructure;
-            TextView tvTaxLayer = (TextView) findViewById(R.id.taxlayer);
+                //If year 2020 and above gerList<Tax2020>
+                Spinner yearSpinner = (Spinner) findViewById(R.id.yearsSpinner);
 
-            if (Integer.parseInt(yearSpinner.getSelectedItem().toString()) >= 2020) {
-                //Make 6th and 7th row visible
-                TableRow tr6 = (TableRow) findViewById(R.id.sixthRowColor);
-                TableRow tr7 = (TableRow) findViewById(R.id.seventhRow);
+                ArrayList<TaxStructure_2020_Inclusive> taxstructure2020;
+                ArrayList<TaxStructure_2005_2016_Inclusive> taxstructure;
+                TextView tvTaxLayer = (TextView) findViewById(R.id.taxlayer);
 
-                tr6.setVisibility(View.VISIBLE);
-                tr7.setVisibility(View.VISIBLE);
+                if (Integer.parseInt(yearSpinner.getSelectedItem().toString()) >= 2020) {
+                    //Make 6th and 7th row visible
+                    Segment_Simple_frag.update_Tax_Texts(theTaxEntity.getTaxRatioNormalPerson_Without_exemption(),
+                            theTaxEntity.getTax_NormalPerson_WithExemption(12), theTaxEntity.getTax_NormalPersonWithout_Exemption(12));
 
-                TaxLayersStructure2020 TLayer2020 = ((Tax_2020_Above_Inclusive) theTaxEntity).getTaxLayer();
-                int[] currentLayer = TLayer2020.getLayerInfo();
-                int currentLayerIndex = currentLayer[2];
+                    TableRow tr6 = (TableRow) findViewById(R.id.sixthRowColor);
+                    TableRow tr7 = (TableRow) findViewById(R.id.seventhRow);
 
-                taxstructure2020 = theTaxEntity.getTaxStructure();  // contains the data
+                    tr6.setVisibility(View.VISIBLE);
+                    tr7.setVisibility(View.VISIBLE);
 
-                for (int i = 0; i < taxstructure2020.size(); i++) {
-                    if (i >= currentLayerIndex) {
-                        TaxStructure_2020_Inclusive mdl2020 = taxstructure2020.get(i);
-                        tvArrayinTable.get(i * 5).setText(String.format("%,.1f", mdl2020.getTaxValueInThisSegment()));
-                        tvArrayinTable.get(i * 5 + 1).setText(Double.toString(mdl2020.getTaxPercentageInThisSegment()));
-                        tvArrayinTable.get(i * 5 + 2).setText((mdl2020.getToAmount() == MAX_VALUE_INT) ? "-" : String.format("%,d", mdl2020.getToAmount()));
-                        tvArrayinTable.get(i * 5 + 3).setText((i == currentLayerIndex) ? "1" : String.format("%,d", mdl2020.getFromAmount()));
-                    } else {
-                        TaxStructure_2020_Inclusive mdl2020 = taxstructure2020.get(i);
-                        tvArrayinTable.get(i * 5).setText("");
-                        tvArrayinTable.get(i * 5 + 1).setText(Double.toString(mdl2020.getTaxPercentageInThisSegment()));
-                        tvArrayinTable.get(i * 5 + 2).setText("");
-                        tvArrayinTable.get(i * 5 + 3).setText("");
+                    TaxLayersStructure2020 TLayer2020 = ((Tax_2020_Above_Inclusive) theTaxEntity).getTaxLayer();
+                    int[] currentLayer = TLayer2020.getLayerInfo();
+                    int currentLayerIndex = currentLayer[2];
+
+                    taxstructure2020 = theTaxEntity.getTaxStructure();  // contains the data
+
+                    for (int i = 0; i < taxstructure2020.size(); i++) {
+                        if (i >= currentLayerIndex) {
+                            TaxStructure_2020_Inclusive mdl2020 = taxstructure2020.get(i);
+                            tvArrayinTable.get(i * 5).setText(String.format("%,.1f", mdl2020.getTaxValueInThisSegment()));
+                            tvArrayinTable.get(i * 5 + 1).setText(Double.toString(mdl2020.getTaxPercentageInThisSegment()));
+                            tvArrayinTable.get(i * 5 + 2).setText((mdl2020.getToAmount() == MAX_VALUE_INT) ? "-" : String.format("%,d", mdl2020.getToAmount()));
+                            tvArrayinTable.get(i * 5 + 3).setText((i == currentLayerIndex) ? "1" : String.format("%,d", mdl2020.getFromAmount()));
+                        } else {
+                            TaxStructure_2020_Inclusive mdl2020 = taxstructure2020.get(i);
+                            tvArrayinTable.get(i * 5).setText("");
+                            tvArrayinTable.get(i * 5 + 1).setText(Double.toString(mdl2020.getTaxPercentageInThisSegment()));
+                            tvArrayinTable.get(i * 5 + 2).setText("");
+                            tvArrayinTable.get(i * 5 + 3).setText("");
+                        }
+                        tvTaxLayer.setVisibility(View.VISIBLE);
+                        tvTaxLayer.setText("طبقة الضريبة من " + String.format("%,d", currentLayer[0]) + "إلى " + ((currentLayer[1] == MAX_VALUE_INT) ? "-" : String.format("%,d", currentLayer[1])));
                     }
-                    tvTaxLayer.setVisibility(View.VISIBLE);
-                    tvTaxLayer.setText("طبقة الضريبة من " + String.format("%,d", currentLayer[0]) + "إلى " + ((currentLayer[1] == MAX_VALUE_INT) ? "-" : String.format("%,d", currentLayer[1])));
+                } else {
+                    //Else get the list of 2005 to 2016 Inclusive
+                    taxstructure = theTaxEntity.getTaxStructure();
+
+                    for (int i = 0; i < taxstructure.size(); i++) {
+                        TaxStructure_2005_2016_Inclusive mdl20052016 = taxstructure.get(i);
+                        tvArrayinTable.get(i * 5).setText(String.format("%,.1f", mdl20052016.getTaxValueInThisSegment()));
+                        tvArrayinTable.get(i * 5 + 1).setText(Double.toString(mdl20052016.getTaxPercentageInThisSegment()));
+                        tvArrayinTable.get(i * 5 + 2).setText((mdl20052016.getToAmount() == MAX_VALUE_INT) ? "-" : String.format("%,d", mdl20052016.getToAmount()));
+                        tvArrayinTable.get(i * 5 + 3).setText(String.format("%,d", mdl20052016.getFromAmount()));
+                        // tvArrayinTable.get(i*5+4).setText(); // This one contains the segment
+                    }
+                    tvTaxLayer.setVisibility(View.GONE);
+                    //  tvTaxLayer.setText("");
                 }
             } else {
-                //Else get the list of 2005 to 2016 Inclusive
-                taxstructure = theTaxEntity.getTaxStructure();
-
-                for (int i = 0; i < taxstructure.size(); i++) {
-                    TaxStructure_2005_2016_Inclusive mdl20052016 = taxstructure.get(i);
-                    tvArrayinTable.get(i * 5).setText(String.format("%,.1f", mdl20052016.getTaxValueInThisSegment()));
-                    tvArrayinTable.get(i * 5 + 1).setText(Double.toString(mdl20052016.getTaxPercentageInThisSegment()));
-                    tvArrayinTable.get(i * 5 + 2).setText((mdl20052016.getToAmount() == MAX_VALUE_INT) ? "-" : String.format("%,d", mdl20052016.getToAmount()));
-                    tvArrayinTable.get(i * 5 + 3).setText(String.format("%,d", mdl20052016.getFromAmount()));
-                    // tvArrayinTable.get(i*5+4).setText(); // This one contains the segment
-                }
-                tvTaxLayer.setVisibility(View.GONE);
-                //  tvTaxLayer.setText("");
+                //BeginShow Tax NonExempted
+                Segment_Simple_frag.update_Tax_Texts(theTaxEntity.getTaxRatioNormalPerson_Without_exemption(),
+                        theTaxEntity.getTax_NormalPerson_WithExemption(12), theTaxEntity.getTax_NormalPersonWithout_Exemption(12));
+                //END of Showtax without details
             }
+
             //Fill The Array of TextViews we got before from the table
             closeKB();
 
-           if (isAdsOn == false) {
+            if (isAdsOn == false) {
                 isAdsOn = true;
                 mAdView = findViewById(R.id.adView);
                 AdRequest adRequest2 = new AdRequest.Builder().build();
@@ -576,9 +586,9 @@ public class MainActivity extends FragmentActivity {
     @Override
     public void onBackPressed() {
 
-        if(reviewRating.getAskForReview())  openReview();
+        if (reviewRating.getAskForReview()) openReview();
 
-        View alertDialogView = getLayoutInflater().inflate(R.layout.alertdialogsimple,null);
+        View alertDialogView = getLayoutInflater().inflate(R.layout.alertdialogsimple, null);
         new AlertDialog.Builder(this)
                 .setView(alertDialogView)
                 .setNegativeButton(R.string.no, null)
@@ -589,7 +599,7 @@ public class MainActivity extends FragmentActivity {
                         System.exit(0);
                     }
                 }).create().show();
-      //  Log.i("TAG", "Add the cuasom layout");
+        //  Log.i("TAG", "Add the cuasom layout");
 
     }
 
@@ -603,16 +613,16 @@ public class MainActivity extends FragmentActivity {
 
 
     @SuppressLint("RestrictedApi")
-    public void fabShowMenu(View fanMenu){
-      //  this.openOptionsMenu();
-            PopupMenu popup = new PopupMenu(this, fanMenu);
-            MenuInflater inflater = popup.getMenuInflater();
-            inflater.inflate(R.menu.navmenu, popup.getMenu());
+    public void fabShowMenu(View fanMenu) {
+        //  this.openOptionsMenu();
+        PopupMenu popup = new PopupMenu(this, fanMenu);
+        MenuInflater inflater = popup.getMenuInflater();
+        inflater.inflate(R.menu.navmenu, popup.getMenu());
 
-            popup.show();
+        popup.show();
 
         try {
-            Field mFieldPopup=popup.getClass().getDeclaredField("mPopup");
+            Field mFieldPopup = popup.getClass().getDeclaredField("mPopup");
             mFieldPopup.setAccessible(true);
             MenuPopupHelper mPopup = (MenuPopupHelper) mFieldPopup.get(popup);
             mPopup.setForceShowIcon(true);
@@ -625,17 +635,34 @@ public class MainActivity extends FragmentActivity {
 
     ////////////////////////////////////////////////////////////////////////
     //Menu Functions
-   public boolean openFullTax(MenuItem v){
+    public boolean openFullTax(MenuItem v) {
         return true;
     }
-    public boolean openPayroll(MenuItem v){
+
+    public boolean openPayroll(MenuItem v) {
         return true;
     }
-    public boolean openMosahmaTakafolia(MenuItem menu){
-        Intent mosTakafoliaIntent=new Intent(this,mosahmatakafoliaActivity.class);
+
+    public boolean openMosahmaTakafolia(MenuItem menu) {
+        Intent mosTakafoliaIntent = new Intent(this, mosahmatakafoliaActivity.class);
         startActivity(mosTakafoliaIntent);
         return true;
     }
 
+    public boolean openShare(MenuItem menu) {
+        try {
+            Intent shareIntent = new Intent(Intent.ACTION_SEND);
+            shareIntent.setType("text/plain");
+            shareIntent.putExtra(Intent.EXTRA_SUBJECT, "Egypt Tax");
+            String shareMessage = "\nأود ترشيح هذا البرنامج المفيد لكم\n\n";
+            shareMessage = shareMessage + "https://play.google.com/store/apps/details?id=" + BuildConfig.APPLICATION_ID + "\n\n";
+            shareIntent.putExtra(Intent.EXTRA_TEXT, shareMessage);
+            startActivity(Intent.createChooser(shareIntent, "إختار وسيلة إرسال"));
+        } catch (Exception e) {
+            //e.toString();
+        }
+
+        return true;
+    }
 
 } //End of the class

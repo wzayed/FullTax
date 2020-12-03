@@ -15,7 +15,7 @@
         android:layout_height="60dp"
         android:onClick="calcTax_NoDiscount"
         android:text="إحسب الضريبة"
-        android:textSize="20sp"
+        android:textSize="24sp"
         app:layout_constraintEnd_toStartOf="@+id/tgl_isExempted"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

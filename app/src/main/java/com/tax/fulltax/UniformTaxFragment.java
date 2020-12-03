@@ -133,11 +133,11 @@ public class UniformTaxFragment extends Fragment {
     }
     public void update_Tax_Texts(double taxVale,double taxRatio){
         if(tgl_isExempted.isChecked()) {
-            Exempted_TVtaxVaue.setText(String.format("%.2f", taxVale));
+            Exempted_TVtaxVaue.setText(String.format("%,.2f", taxVale));
         }
         else{
-            UnExempted_TVtaxVaue.setText(String.format("%.2f", taxVale));
-            UnExempted_TVtaxRatio.setText(String.format("%.2f", taxRatio));
+            UnExempted_TVtaxVaue.setText(String.format("%,.2f", taxVale));
+            UnExempted_TVtaxRatio.setText(String.format("%,.2f", taxRatio));
         }
 
     }

@@ -54,7 +54,7 @@ public class mosahmatakafoliaActivity extends AppCompatActivity {
         try {
             double dblTemp = Double.parseDouble(inputTotalIncome.getText().toString());
             double result = dblTemp * 2.5 / 1000;
-            tvResult.setText(String.format("%.2f", result));
+            tvResult.setText(String.format("%,.2f", result));
 
             closeKB();
             trackWhenShowRating();
@@ -104,6 +104,22 @@ public class mosahmatakafoliaActivity extends AppCompatActivity {
     }
 
     public boolean openMosahmaTakafolia(MenuItem v) {
+        return true;
+    }
+
+    public boolean openShare(MenuItem menu){
+        try {
+            Intent shareIntent = new Intent(Intent.ACTION_SEND);
+            shareIntent.setType("text/plain");
+            shareIntent.putExtra(Intent.EXTRA_SUBJECT, "Egypt Tax");
+            String shareMessage= "\nأود ترشيح هذا البرنامج المفيد لكم\n\n";
+            shareMessage = shareMessage + "https://play.google.com/store/apps/details?id=" + BuildConfig.APPLICATION_ID +"\n\n";
+            shareIntent.putExtra(Intent.EXTRA_TEXT, shareMessage);
+            startActivity(Intent.createChooser(shareIntent, "إختار وسيلة إرسال"));
+        } catch(Exception e) {
+            //e.toString();
+        }
+
         return true;
     }
 

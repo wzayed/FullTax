@@ -112,9 +112,11 @@ public class SegmentSimpleTaxFragment extends Fragment {
         }
         else{
             TextView txt_taxValue= getActivity().findViewById(R.id.lblResTaxValue_FragSmpl);
-            TextView txt_taxPercentage= getActivity().findViewById(R.id.lblResTaxRatio_FragSmpl);
-            txt_taxPercentage.setText(String.format("%.2f%%",taxPercentage));
             txt_taxValue.setText(String.format("%,.2f",taxValueUnExempted));
+
+            TextView txt_taxPercentage= getActivity().findViewById(R.id.lblResTaxRatio_FragSmpl);
+            txt_taxPercentage.setText(String.format("%,.2f%%",taxPercentage));
+
         }
     }
     @Override
