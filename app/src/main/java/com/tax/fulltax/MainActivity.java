@@ -304,6 +304,9 @@ public class MainActivity extends FragmentActivity {
                     }
                 } else {
                     //Else get the list of 2005 to 2016 Inclusive
+                    Segment_Simple_frag.update_Tax_Texts(theTaxEntity.getTaxRatioNormalPerson_Without_exemption(),
+                            theTaxEntity.getTax_NormalPerson_WithExemption(12), theTaxEntity.getTax_NormalPersonWithout_Exemption(12));
+
                     taxstructure = theTaxEntity.getTaxStructure();
 
                     for (int i = 0; i < taxstructure.size(); i++) {

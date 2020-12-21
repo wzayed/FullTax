@@ -8,8 +8,8 @@ android {
         applicationId "com.tax.fulltax"
         minSdkVersion 21
         targetSdkVersion 29
-        versionCode 226
-        versionName "2.26"
+        versionCode 227
+        versionName "2.27"
         android.defaultConfig.ndk.debugSymbolLevel = 'FULL'
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
