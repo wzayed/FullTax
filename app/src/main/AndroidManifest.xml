@@ -11,14 +11,13 @@
         android:roundIcon="@drawable/fulltax"
         android:supportsRtl="false"
         android:theme="@style/Theme.AppCompat.Light">
-
-        <activity android:name=".mosahmatakafoliaActivity"></activity>
+        <activity android:name=".PayRoll" />
+        <activity android:name=".mosahmatakafoliaActivity" />
         <activity
             android:name=".MainActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
-
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
@@ -29,6 +28,8 @@
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="@string/add_mob_app_id" />
+
+
     </application>
 
 </manifest>

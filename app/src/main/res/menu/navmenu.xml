@@ -11,11 +11,11 @@
         android:title="ضرائب تجارية و صناعية"
 
         android:visible="true" />
-  <!--  <item
+    <item
         android:id="@+id/payrolltax"
         android:icon="@drawable/alert"
         android:onClick="openPayroll"
-        android:title="ضرائب الأجور و المرتبات"></item> -->
+        android:title="ضرائب الأجور و المرتبات"></item>
     <item
         android:id="@+id/mosahmatakafolia"
         android:enabled="true"

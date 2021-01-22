@@ -32,6 +32,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.view.menu.MenuPopupHelper;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.core.app.ShareCompat;
@@ -49,8 +50,12 @@ import com.google.android.play.core.review.ReviewInfo;
 import com.google.android.play.core.review.ReviewManager;
 import com.google.android.play.core.review.ReviewManagerFactory;
 import com.google.android.play.core.review.testing.FakeReviewManager;
+
 import com.google.android.play.core.tasks.OnCompleteListener;
 import com.google.android.play.core.tasks.Task;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.installations.FirebaseInstallations;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.tax.completefactory.TaxLayersStructure2020;
 import com.tax.completefactory.TaxStructure_1981_2004_Inclusive;
 import com.tax.completefactory.TaxStructure_2005_2016_Inclusive;
@@ -73,9 +78,10 @@ import java.util.List;
 import static com.tax.completefactory.Constants.MAX_VALUE_INT;
 
 public class MainActivity extends FragmentActivity {
+
     public static int counterToViewRatingAfter = 0;
     public static boolean askForReview = false;
-
+    public String m_FCMToken="";
     public static class MyReviewRating {
         public int getCounter() {
             return counterToViewRatingAfter;
@@ -114,6 +120,8 @@ public class MainActivity extends FragmentActivity {
 
         //   requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main);
+       // m_FCMToken = FirebaseInstanceId.getInstance().getToken();
+
         lblTaxLaw = (TextView) findViewById(R.id.lblTaxLaw);
         fabMenu = (FloatingActionButton) findViewById(R.id.fabdrawerMenu);
         Spinner yearsSpinner = findViewById(R.id.yearsSpinner);
@@ -643,6 +651,8 @@ public class MainActivity extends FragmentActivity {
     }
 
     public boolean openPayroll(MenuItem v) {
+        Intent payRollIntent = new Intent(this,PayRoll.class);
+        startActivity(payRollIntent);
         return true;
     }
 
